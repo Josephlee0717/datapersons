@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+ <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+ <link rel="stylesheet" href="../css/impot.css" />
+ <script src="../js/jquery/jquery-1.11.0.min.js" type="text/javascript"></script>
+ <script type="text/javascript" src="../js/jquery/jquery.json-2.3.min.js"></script>
+ <link rel="stylesheet" href="../js/artDialog/skins/black.css?4.1.2"></link>
+ <script src="../js/artDialog/artDialog.source.js?skin=black"></script>
+ <script src="../js/common.js" type="text/javascript"></script> 
+ <script src="../js/main.js" type="text/javascript"></script> 
+ <title>消费养老系统</title>
+</head>
+<body>
+ <header>
+  <div class="top white">
+    <div class="box1"><a class="white" href="../index.html"><</a></div>
+    <div class="box2">消费养老系统</div>
+  </div>
+ </header>
+ <section>
+  <div class="loginBox">
+    <aside>注册成功!完善信息后进入<span class="red">返利队列</span>,您的信息会影响<span class="red">返利到账</span>,请确保信息的<span class="red">真实性</span>哦!
+    </aside>  
+    <div class="login">
+	  <form id="postForm" method="post" target="tempFrame">
+        <p><span>返利到账（必填信息）</span></p><hr color="#dfdfdf"/>
+        <p><span class="s4">姓名</span></p>
+        <p><span class="s2"><input id="username" type="text" value="" name="UName" required="required"></span></p>
+		<p><span class="s4">身份证号</span></p>
+        <p><span class="s2"><input id="idCard" type="text" value="" name="UName" required="required"></span></p>
+		<p><span class="s4">工商银行卡号</span></p>
+        <p><span class="s2"><input id="ICBCCard" type="text" value="" name="UName" required="required"></span></p>                
+		<hr class="s5" color="#dfdfdf"/>
+		<p><span class="s4">支付方式（至少一种）</span></p>
+        <hr color="#dfdfdf"/>
+        <p><span class="s4">微信支付账号</span></p>
+        <p><span class="s2"><input id="WXNum" type="text" value="" name="UName" required="required"></span></p>
+		<p><span class="s4">支付宝账号</span></p>
+        <p><span class="s2"><input id="ZFBNum" type="text" value="" name="UName" required="required"></span></p>
+        <!-- 支付宝测试 -->
+        <p><span class="s4">测试项目1</span></p>
+        <p><span class="s2"><input id="subject" type="text" value="" name="subject" required="required"></span></p>
+        <p><span class="s4">金额</span></p>
+        <p><span class="s2"><input id="total_fee" type="text" value="" name="total_fee" required="required"></span></p>
+        <p><a href="#" class="but_1" id="payBtn" >付款</a>
+	  </form>
+	</div>
+	<a href="#" class="but_1" id="updateUserBtn" >确认</a>
+  </div>
+ </section>
+</body>
+</html>

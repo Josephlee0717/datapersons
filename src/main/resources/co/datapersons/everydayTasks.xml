@@ -1,0 +1,45 @@
+<TaskRecords>
+	<Record>
+		<Date>2016-04-18</Date>
+		<Content>
+			1、登录记时间和次数累计
+			2、交易写库
+		</Content>
+	</Record>
+	<Record>
+		<Date>2016-04-19</Date>
+		<Content>
+			1、登录记时间和次数累计
+			2、交易写库
+			3、登录到后台的业务逻辑及后台Java代码的控制
+			4、前端数据js请求
+			5、后台访问数据库的业务逻辑
+			6、mysql数据表结构的进一步改进			
+		</Content>
+	</Record>
+	<Record>
+		<Date>2016-04-22</Date>
+		<Content>
+		    1、开发微信商城的时候要使用 jQuery WEUI
+				http://www.oschina.net/p/jQuery-WeUI?fromerr=Vu4RA6jh				
+				（研究一下先）
+			2、
+		</Content>
+	</Record>
+	<Record>
+		<Date>2016-05-30</Date>
+		<Content>
+		    1、最后修改一次datapersons 
+				A、添加userconsumeList 和  shopincomelist 两个Page
+				B、添加三个算法 (仔细研究文档)
+			2、5.30和 5.31连发两个
+			3、识别蓝牙鼠标
+			4、屏幕显示分辨率还要调低
+			5、安装eclipse、 sublime 的插件； 安装vim ; iterm2;textmate;CrossFTP ; xcode ; coda2 ; 360 cloud disk; baidu cloud disk; 
+				eclipse plugins: android developer tools for eclipse ; properties editor; Run-jetty-run ; spring-IDE
+				sublime plugins: pretty json; filediff ; emmet
+			6、调整sequel pro ;xampp ; tomcat; 使容易使用
+			7、研究一下 sequel pro 上如何导入导出 sqlfile
+		</Content>
+	</Record>		
+</TaskRecords>

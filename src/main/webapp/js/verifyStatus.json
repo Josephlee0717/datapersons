@@ -1,0 +1,14 @@
+[
+  {
+    "varifyValue": 0,
+    "verifyText": "审核中"
+  },
+  {
+    "varifyValue": 1,
+    "verifyText": "已通过"
+    },
+  {
+    "varifyValue": 2,
+    "verifyText": "未通过"
+  }
+]

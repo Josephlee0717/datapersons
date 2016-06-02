@@ -1,0 +1,84 @@
+/*element css*/
+html, body, div, section, article, aside, header, hgroup, footer, nav, h1, h2, h3, h4, h5, h6, a, blockquote, address, time, span, em, strong, img, ol, ul, li, figure, canvas, video, th, td, tr, iframe{border:0; vertical-align:baseline; font:inherit; text-decoration:none;list-style:none;}
+body {margin:0;background:url(../images/body.png);font:12px/180% Arial, Helvetica, sans-serif, "ÐÂËÎÌå";}
+html {height:100%;}
+p, ul, li {margin:0;padding:0;}
+li {list-style-type:none;}
+
+/*Overall-top,body,floor*/
+.div_head {height:40px; background:#0099cc; position:fixed; top:0px; left:0px; width:100%; min-width:615px;}
+.div_body {margin-top:40px;overflow-x:hidden;}
+/*undetermined,If is used*/
+.div_floor{} 
+
+/*Opthon used*/
+
+
+/*div_head son*/
+.div_head span{height:40px;color:#FFF;line-height:40px;font-size:14px;}
+.div_head .head_right{float:right;}
+.div_head .partition{display:inline-block; height:40px; border-right:1px solid #01759B; vertical-align:top;}
+.div_head .text{margin:0 21px;vertical-align:top;}
+.div_head .input_text{background:#FCFCFC; border:1px solid #CCC; padding:1px;}
+.div_head .input_button{background:#FCFCFC; border:1px solid #CCC; margin-right:20px;}	
+
+/*div_body son left*/
+.div_body .left{position:fixed; width:156px; background:#293038; height:100%; border-left: 1px solid #000;}
+.div_body .left .menu{margin-top:0px;}
+.div_body .left .menu .menu-s{display:block;height:18px;overflow:hidden;padding:8px 0 8px 15px;color:#f5f5f5;font-size:14px;font-weight:normal;cursor:pointer; margin:3px 0;font-weight:bold;}
+.div_body .left .menu .menu-s img{width:14px; height:14px; margin-right:12px; vertical-align:text-top;}
+.div_body .left .menu .menu-d{display:none;padding:4px 0 4px 0px;}
+.div_body .left .menu .menu-d ul{display:block;}
+.div_body .left .menu .menu-d li{padding:3px 0;height:31px;overflow:hidden; font-size:14spx;}
+.div_body .left .menu .menu-d-current{display:block; border-bottom:solid 1px #4e5d6e;}
+.div_body .left .menu .menu-s-current{border-top:solid 1px #4e5d6e;border-bottom:solid 1px #4e5d6e;background:#000; font-weight:bold;}
+/*menu li a cess*/
+.div_body .left .menu .menu-d li a{color:#f5f5f5;display:block; padding:4px 0; text-indent:40px;}
+.div_body .left .menu .css_color a{color:#ff0000; background:#001a38}
+.menu .menu-d li a:hover{color:#f5f5f5; background:#4e5d6e;}
+
+/*div_body son right*/
+.div_body .right{height:100%; margin-left:156px;}
+.div_body .right .userInfor{margin:5px 10px; padding:10px; background-color:#fefefe;min-width:1060px; border:1px solid #DDD; color:#767676;}
+.div_body .right .userInfor span{font-size:14px;letter-spacing:0px;}
+.div_body .right .userInfor .marginCss{margin-top:10px; display:block;}
+.div_body .right .userInfor .iforTime{padding:10px; font-size:16px; font-weight:bold; letter-spacing:1px; display:block; color:#222;}
+.div_body .right .userInfor .condition{padding:0 5px; margin-left:20px; display:block; color:#000;}
+.div_body .right .userInfor .condition .span{margin-left:20px;}
+.div_body .right .userInfor .condition a{color:#2283c5; margin:0 5px;}
+.div_body .right .userInfor .condition .condColor{color:#416fa8;}
+.div_body .right .userInfor span .num{font-size:16px; font-weight:bold; color:#222;}
+.div_body .right .userInfor .puniness{font-weight:100; font-size:14px; color:#767676;}
+.div_body .right .userInfor .spanFull{padding:5px 5px 0px;}
+.div_body .right .userInfor .spanFirst{margin-left:20px;}
+.div_body .right .userInfor .spanLast{margin-right:20px;}
+/*div_body son right title*/
+.div_body .right .userDate{margin:10px;}
+.div_body .right .userDate .histroyDay{background:#fff; padding:10px; border:1px solid #c9e6f2; margin-bottom:0px; border-bottom:2px solid #3070cc; min-width:1060px; padding-left:25px; font-size:14px; color:#767676;}
+.div_body .right .userDate .histroyDay .span{margin:0px 10px;}
+.div_body .right .userDate .histroyDay .bold{font-weight:bold; color:#111;}
+.div_body .right .userDate .histroyDay .big{font-size:15px; color:#111;}
+.div_body .right .userDate .histroyDay .black{color:#111;}
+.div_body .right .userDate .histroyDay .mRight{margin-left:-15px;}
+.div_body .right .userDate .histroyDay .dataCand{display:inline-block; float:right;}
+.div_body .right .userDate .title{background:#f5f5f5;}
+.div_body .right .userDate .title ul{height:32px; background:#eff3f8; border:1px solid #c9e6f2; min-width:1060px;}
+.div_body .right .userDate .title ul li{padding:5px 20px; float:left; border-right:1px solid #c9e6f2; cursor:pointer;}
+.div_body .right .userDate .title ul .liSelect{background:#fefefe; border-bottom:1px solid #64b0cf;}
+/*div_body son right table*/
+.div_body .right .userDate .userTable{border-right:1px solid #DDD;border-left:1px solid #DDD;border-bottom:1px solid #DDD; background:#fefefe; border-collapse:collapse; color:#333; width:100%; min-width:1060px;}
+.div_body .right .userDate .userTable tr{border-bottom:1px solid #DDD;}
+.div_body .right .userDate .userTable th{font-weight:700; padding:10px 0; font-size:14px; color: #547ea8; background:#fbfbfb repeat-x; background-image: linear-gradient(to bottom,#fbfbff 0,#eff3f8 100%); border-top:1px solid #fbfbff;}
+.div_body .right .userDate .userTable td{text-align:center; padding:10px 0;font-size:13px;}
+.div_body .right .userDate .userTable .odd{background:#f9f9f9;}
+.div_body .right .userDate .userTable .even{background:#fff;}
+.div_body .right .userDate .userTable .cause{color:#ff6868;}
+/*div_body son right paging*/
+.div_body .right .paging{text-align:right; padding-right:40px; background:#eff3f8; padding-top:12px; padding-bottom:12px; border-bottom:1px solid #e0e0e0; margin-bottom:10px; min-width:700px;}
+.div_body .right .paging .dataNum{display:inline-block; float:left; padding:6px 13px; margin-left:20px; font-size:13px;}
+.div_body .right .paging .bold{font-weight:bold;}
+.div_body .right .paging ul li{display:inline-block;}
+.div_body .right .paging ul li a{display:inline-block; background-color:#f9f9f9; border:1px solid #d4dfe3; color: #fff; cursor:default; padding:4px 13px; color:#2283c5; vertical-align:text-bottom; margin-right:-4px;}
+.div_body .right .paging ul li a:hover{background-color:#eaeff2;}
+.div_body .right .paging ul li .pagingClick{background-color:#6faed9; border-color: #6faed9; color:#fff;}
+.menuitem{color:#fff}

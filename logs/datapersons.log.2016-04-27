@@ -1,0 +1,228 @@
+
+
+2016-04-27 01:27:27,364INFO[co.datapersons.actions.UserAction]-session userid is :13971615483
+
+
+2016-04-27 10:34:30,116INFO[co.datapersons.actions.UserAction]-login userid:14 login success.
+
+
+2016-04-27 10:34:30,262INFO[co.datapersons.actions.UserAction]-ManagerVerify :13971615483 session valid.
+
+
+2016-04-27 10:34:38,594INFO[co.datapersons.actions.UserAction]-Write session userid= qiduwl
+
+
+2016-04-27 10:34:38,595INFO[co.datapersons.actions.UserAction]-ManagerLogin :qiduwl login success.
+
+
+2016-04-27 10:34:39,128INFO[co.datapersons.actions.UserAction]-ManagerVerify :13971615483 session valid.
+
+
+2016-04-27 10:48:52,072INFO[co.datapersons.actions.UserAction]-ManagerVerify : session invalid.
+
+
+2016-04-27 10:48:54,121INFO[co.datapersons.actions.UserAction]-Write session userid= qiduwl
+
+
+2016-04-27 10:48:54,122INFO[co.datapersons.actions.UserAction]-ManagerLogin :qiduwl login success.
+
+
+2016-04-27 10:48:54,380INFO[co.datapersons.actions.UserAction]-ManagerVerify :13971615483 session valid.
+
+
+2016-04-27 10:53:30,513INFO[co.datapersons.actions.UserAction]-ManagerVerify : session invalid.
+
+
+2016-04-27 10:53:37,187INFO[co.datapersons.actions.UserAction]-Write session userid= qiduwl
+
+
+2016-04-27 10:53:37,188INFO[co.datapersons.actions.UserAction]-ManagerLogin :qiduwl login success.
+
+
+2016-04-27 10:53:44,208INFO[co.datapersons.actions.UserAction]-ManagerVerify :13971615483 session valid.
+
+
+2016-04-27 10:53:59,416INFO[co.datapersons.actions.UserAction]-ManagerVerify : session invalid.
+
+
+2016-04-27 10:54:12,001INFO[co.datapersons.actions.UserAction]-Write session userid= qiduwl
+
+
+2016-04-27 10:54:12,002INFO[co.datapersons.actions.UserAction]-ManagerLogin :qiduwl login success.
+
+
+2016-04-27 10:54:12,181INFO[co.datapersons.actions.UserAction]-ManagerVerify :13971615483 session valid.
+
+
+2016-04-27 10:54:13,717INFO[co.datapersons.actions.UserAction]-ManagerVerify : session invalid.
+
+
+2016-04-27 10:54:16,193INFO[co.datapersons.actions.UserAction]-Write session userid= qiduwl
+
+
+2016-04-27 10:54:16,193INFO[co.datapersons.actions.UserAction]-ManagerLogin :qiduwl login success.
+
+
+2016-04-27 10:54:16,347INFO[co.datapersons.actions.UserAction]-ManagerVerify :13971615483 session valid.
+
+
+2016-04-27 10:54:18,291INFO[co.datapersons.actions.UserAction]-ManagerVerify : session invalid.
+
+
+2016-04-27 11:52:31,636INFO[co.datapersons.actions.UserAction]-Write session userid= qiduwl
+
+
+2016-04-27 11:52:31,636INFO[co.datapersons.actions.UserAction]-ManagerLogin :qiduwl login success.
+
+
+2016-04-27 11:55:56,598INFO[co.datapersons.actions.UserAction]-ManagerVerify :13971615483 session valid.
+
+
+2016-04-27 11:56:01,920INFO[co.datapersons.actions.UserAction]-ManagerVerify : session invalid.
+
+
+2016-04-27 11:56:45,243INFO[co.datapersons.actions.UserAction]-Write session userid= qiduwl
+
+
+2016-04-27 11:56:45,244INFO[co.datapersons.actions.UserAction]-ManagerLogin :qiduwl login success.
+
+
+2016-04-27 11:56:48,607INFO[co.datapersons.actions.UserAction]-ManagerVerify :13971615483 session valid.
+
+
+2016-04-27 11:56:50,555INFO[co.datapersons.actions.UserAction]-ManagerVerify : session invalid.
+
+
+2016-04-27 11:57:08,719INFO[co.datapersons.actions.UserAction]-Write session userid= qiduwl
+
+
+2016-04-27 11:57:08,720INFO[co.datapersons.actions.UserAction]-ManagerLogin :qiduwl login success.
+
+
+2016-04-27 11:57:09,595INFO[co.datapersons.actions.UserAction]-ManagerVerify :13971615483 session valid.
+
+
+2016-04-27 11:57:12,314INFO[co.datapersons.actions.UserAction]-ManagerVerify :13971615483 session valid.
+
+
+2016-04-27 11:57:15,865INFO[co.datapersons.actions.UserAction]-ManagerVerify : session invalid.
+
+
+2016-04-27 11:57:32,994INFO[co.datapersons.actions.UserAction]-ManagerVerify : session invalid.
+
+
+2016-04-27 11:57:49,685INFO[co.datapersons.actions.UserAction]-Write session userid= qiduwl
+
+
+2016-04-27 11:57:49,685INFO[co.datapersons.actions.UserAction]-ManagerLogin :qiduwl login success.
+
+
+2016-04-27 11:57:52,338INFO[co.datapersons.actions.UserAction]-ManagerVerify :13971615483 session valid.
+
+
+2016-04-27 11:58:54,860INFO[co.datapersons.actions.UserAction]-ManagerVerify : session invalid.
+
+
+2016-04-27 11:59:09,408INFO[co.datapersons.actions.UserAction]-Write session userid= qiduwl
+
+
+2016-04-27 11:59:09,409INFO[co.datapersons.actions.UserAction]-ManagerLogin :qiduwl login success.
+
+
+2016-04-27 11:59:11,033INFO[co.datapersons.actions.UserAction]-ManagerVerify :13971615483 session valid.
+
+
+2016-04-27 11:59:40,840INFO[co.datapersons.actions.UserAction]-ManagerVerify : session invalid.
+
+
+2016-04-27 11:59:46,504INFO[co.datapersons.actions.UserAction]-ManagerVerify : session invalid.
+
+
+2016-04-27 13:10:56,603INFO[co.datapersons.actions.UserAction]-login userid:14 login success.
+
+
+2016-04-27 13:10:56,682INFO[co.datapersons.actions.UserAction]-ManagerVerify :13971615483 session valid.
+
+
+2016-04-27 13:11:09,417INFO[co.datapersons.actions.UserAction]-Write session userid= qiduwl
+
+
+2016-04-27 13:11:09,418INFO[co.datapersons.actions.UserAction]-ManagerLogin :qiduwl login success.
+
+
+2016-04-27 13:11:10,076INFO[co.datapersons.actions.UserAction]-ManagerVerify :13971615483 session valid.
+
+
+2016-04-27 13:14:59,755INFO[co.datapersons.actions.UserAction]-login userid:14 login success.
+
+
+2016-04-27 13:14:59,918INFO[co.datapersons.actions.UserAction]-ManagerVerify :13971615483 session valid.
+
+
+2016-04-27 13:15:04,937INFO[co.datapersons.actions.UserAction]-ManagerVerify :13971615483 session valid.
+
+
+2016-04-27 13:15:12,402INFO[co.datapersons.actions.UserAction]-Write session userid= qiduwl
+
+
+2016-04-27 13:15:12,402INFO[co.datapersons.actions.UserAction]-ManagerLogin :qiduwl login success.
+
+
+2016-04-27 13:15:12,721INFO[co.datapersons.actions.UserAction]-ManagerVerify :13971615483 session valid.
+
+
+2016-04-27 13:16:38,114INFO[co.datapersons.actions.UserAction]-ManagerVerify : session invalid.
+
+
+2016-04-27 13:16:39,706INFO[co.datapersons.actions.UserAction]-Write session userid= qiduwl
+
+
+2016-04-27 13:16:39,706INFO[co.datapersons.actions.UserAction]-ManagerLogin :qiduwl login success.
+
+
+2016-04-27 13:16:39,885INFO[co.datapersons.actions.UserAction]-ManagerVerify :13971615483 session valid.
+
+
+2016-04-27 13:16:56,756INFO[co.datapersons.actions.UserAction]-ManagerVerify :13971615483 session valid.
+
+
+2016-04-27 13:17:03,214INFO[co.datapersons.actions.UserAction]-login userid:14 login success.
+
+
+2016-04-27 13:17:03,325INFO[co.datapersons.actions.UserAction]-ManagerVerify :13971615483 session valid.
+
+
+2016-04-27 13:17:07,714INFO[co.datapersons.actions.UserAction]-ManagerVerify :13971615483 session valid.
+
+
+2016-04-27 23:02:46,579INFO[co.datapersons.actions.UserAction]-ManagerVerify : session invalid.
+
+
+2016-04-27 23:03:08,712INFO[co.datapersons.actions.UserAction]-Write session userid= qiduwl
+
+
+2016-04-27 23:03:08,713INFO[co.datapersons.actions.UserAction]-ManagerLogin :qiduwl login success.
+
+
+2016-04-27 23:03:09,566INFO[co.datapersons.actions.UserAction]-ManagerVerify :13971615483 session valid.
+
+
+2016-04-27 23:03:45,620INFO[co.datapersons.actions.UserAction]-ManagerVerify : session invalid.
+
+
+2016-04-27 23:06:56,182INFO[co.datapersons.actions.UserAction]-login userid:14 login success.
+
+
+2016-04-27 23:06:59,191INFO[co.datapersons.actions.UserAction]-ManagerVerify :13971615483 session valid.
+
+
+2016-04-27 23:37:22,807INFO[co.datapersons.actions.UserAction]-ManagerVerify :  session valid.
+
+
+2016-04-27 23:38:07,230INFO[co.datapersons.actions.UserAction]-login userid:14 login success.
+
+
+2016-04-27 23:38:07,606INFO[co.datapersons.actions.UserAction]-ManagerVerify :13971615483 session valid.
+
+
+2016-04-27 23:38:15,671INFO[co.datapersons.actions.UserAction]-ManagerVerify :13971615483 session valid.

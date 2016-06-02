@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <link rel="icon" href="../images/logo.png" />
+ <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+ <link rel="stylesheet" href="css/body.css" /> 
+ <script src="../js/jquery/jquery-1.11.0.min.js" type="text/javascript"></script>
+ <script type="text/javascript" src="../js/jquery/jquery.json-2.3.min.js"></script>
+ <link rel="stylesheet" href="../js/artDialog/skins/black.css?4.1.2"></link>
+ <script src="../js/artDialog/artDialog.source.js?skin=black"></script>
+ <script type="text/javascript" src="../js/uploadify/jquery.uploadify.js"></script>
+ <link rel="stylesheet" type="text/css" href="../js/uploadify/uploadify.css" />
+ <script  src="../js/judg.js" type="text/javascript"></script> 
+ <script src="../js/common.js" type="text/javascript"></script> 
+ <script src="../js/util.js" type="text/javascript"></script>
+ <script src="../js/main.js" type="text/javascript"></script>
+ 
+ <title>登陆</title>
+
+</head>
+<body>
+ <div class="registerBody">
+   <!--floor-->
+   <div class="head">
+    <span><a href="javascript:history.back(-1);" id="return"><</a></span>
+    <span class="title">消费养老系统</span>
+   </div>
+   <!--body-->
+   <div class="body">
+    <div class="number"></div>
+    <div class="write">
+     <p>
+      <span class="rowLeft">手机号：</span>
+      <span class="rowRight"><input type="text" name="UName" required="required" id="mobileNum"></span>
+     </p> 
+     <div id="promptUser"></div>
+     <p>
+      <span class="rowLeft">密码：</span>
+      <span class="rowRight"><input type="password" name="UName" required="required" id="password"></span>
+     </p> 
+     <div id="promptPassword"></div>
+    </div>
+   </div>
+   <!--floor-->
+   <div class="floor">
+    <a href="#" class="registerA" id="loginBtn">登&nbsp;&nbsp;陆</a>
+    <p class="red smallFont">
+     没有帐号？点击&nbsp;<a href="#" id="registerEntry">立即注册</a>&nbsp;<span class="grey">|</span>
+     <a href="#" id="forget">忘记密码</a>
+    </p>  
+   </div>
+ </div>
+ <div class="floornull"></div>
+</body>
+</html>

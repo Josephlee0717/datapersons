@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>例程测试</title>
+<link rel="stylesheet" href="css/menu.css" />
+<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="js/menu.js"></script>
+</head>
+
+<body>
+ <!--head-->
+ <div class="div_head">
+   <img src="images/logo.png"/><span class="text">管理控制台</span>
+   <div class="partition"></div>
+   <div class="head_right">
+    <span>
+    <select>
+  	<option value ="volvo">用户ID</option>
+  	<option value ="saab">用户手机号</option>
+  	<option value="opel">用户身份证号</option>
+    <option value ="volvo" disabled="disabled">——————</option>
+  	<option value ="volvo">商家ID</option>
+  	<option value ="saab">商家手机号</option>
+  	<option value="opel">商家身份证号</option>    
+  	</select>
+    <input type="text" class="input_text"/>
+    <input type="button" value="搜索" class="input_button" />
+    </span>
+    <div class="partition"></div>
+    <span class="text">退出</span>
+   </div>
+ </div>
+ <!--body-->
+ <div class="div_body">
+  <div class="left">
+   <div class="menu" id="nav_i">
+    <!--hidden-->
+    <input class="menu-code-index" type="hidden" value="c849" />
+    <!--user-->
+    <strong class="menu-s"><img src="images/m-user.png"/>用户中心</strong>
+    <div class="menu-d" id="nav_user">
+     <ul>
+       <li><a href="#">每日注册用户</a></li>
+       <li><a href="#">用户转账记录</a></li>
+       <li><a href="#">用户区域统计</a></li>
+       <li><a href="#">用户推荐详细</a></li>
+       <li><a href="#">代理管理</a></li>
+     </ul>
+    </div>
+    <!--shop-->
+    <strong class="menu-s"><img src="images/m-shop.png"/>商户中心</strong>
+    <div class="menu-d" id="nav_shop">
+     <ul>
+       <li><a href="#">每日入驻商户</a></li>
+       <li><a href="#">商户转账记录</a></li>
+       <li><a href="#">商户区域统计</a></li>
+       <li><a href="#">商户推荐详细</a></li>
+       <li><a href="#">商户入驻审核</a></li>
+     </ul>
+    </div>
+    <!--pay-->
+    <strong class="menu-s"><img src="images/m-pay.png"/>消费返利系统</strong>
+    <div class="menu-d" id="nav_return">
+     <ul>
+       <li><a href="#">返利池管理</a></li>
+       <li><a href="#">返利队列管理</a></li>
+       <li><a href="#">未返利队列记录</a></li>
+       <li><a href="#">已返利队列记录</a></li>
+     </ul>
+    </div>   
+    <!--pay-->
+    <strong class="menu-s"><img src="images/m-set.png"/>平台系统管理</strong>
+    <div class="menu-d" id="nav_root">
+     <ul>
+       <li><a href="#">管理员账号管理</a></li>
+     </ul>
+    </div>
+         
+   </div>   
+  </div>
+  <!--right-->  
+  <div class="right" id="loadheml"><button id="button_load">获取</button>
+	
+  </div>
+ </div>
+ <!--floor-->
+
+ 
+</body>
+</html>
