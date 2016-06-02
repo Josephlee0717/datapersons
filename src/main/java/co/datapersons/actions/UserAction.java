@@ -2043,4 +2043,9 @@ public class UserAction extends BaseAction
 		}
 	}
 	
+	
+	public void GenQueueID(JSONObject input,JSONObject output){
+		
+	}
+	
 }
