@@ -3,10 +3,13 @@ package co.datapersons.actions;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
-
+import java.math.*;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator; 
 import org.apache.commons.lang.StringUtils;
@@ -773,6 +776,24 @@ public class UserAction extends BaseAction
 		}
 	}
 	
+	public void SetPayInfor(JSONObject input,JSONObject output){
+		if(this.getSession().getAttribute("userid") != null){
+			String userid =  this.getSession().getAttribute("userid").toString();
+			String weixin ="";
+			String zhifubao = "";
+			///zhifubao  weixin
+			String[] queryParams = new String[]{"SetPayInfor",weixin,zhifubao,userid};
+			JdbcDatabaseService jdbcService = ApplicationContext.getInstance().getJDBCService();
+			Object r = jdbcService.doService(queryParams);
+			if(r!=null){
+				output.accumulate("status", "0000");
+			}
+			else{
+				output.accumulate("status", "9999");
+			}
+		}
+	}
+	
 	public void QueryShopSumToday(JSONObject input,JSONObject output){
 		if(this.getSession().getAttribute("userid") != null){
 			String userid =  this.getSession().getAttribute("userid").toString();
@@ -1293,6 +1314,7 @@ public class UserAction extends BaseAction
 	
 	public void QueryProxy(JSONObject input,JSONObject output){
 //		String registertime =  this.getInput(input, "area");
+		
 		String area =  this.getInput(input, "area");
 		String[] queryParams = new String[]{"QueryProxy","%"+area+"%"};
 		JdbcDatabaseService jdbcService = ApplicationContext.getInstance().getJDBCService();
@@ -1925,21 +1947,53 @@ public class UserAction extends BaseAction
 			String shopid = jsonArray.getJSONObject(i).getString("id");		
 			String reducepoint = jsonArray.getJSONObject(i).getString("reducepoint");
 			String verifystatus =jsonArray.getJSONObject(i).getString("verifystatus");
+			String undonecause =jsonArray.getJSONObject(i).getString("undonecause");
 			
-			String[] queryParams = new String[]{"VerifyShopByManager",reducepoint,verifystatus,shopid};
+			
+			String[] queryParams = new String[]{"VerifyShopByManager",reducepoint,verifystatus,undonecause,shopid};
 			JdbcDatabaseService jdbcService = ApplicationContext.getInstance().getJDBCService();
 			Object r = jdbcService.doService(queryParams);
 			if(r==null){
 				output.accumulate("status", "9999");
+				return;
 			}
 			queryParams = new String[]{"SetUsertoShopByShopid",shopid};
 			r = jdbcService.doService(queryParams);
 			if(r==null){
-				output.accumulate("status", "9999");
+				output.accumulate("status", "9998");
+				return;
 			}
 		}
 		
 		output.accumulate("status", "0000");
+		
+	}
+	//
+	public void VerifyProxyByManager(JSONObject input,JSONObject output){
+//		String shopid =  this.getInput(input, "id");	
+		String request = this.getInput(input, "updated");
+		JSONObject object = new JSONObject();
+		object = JSONObject.fromObject(request);
+		Object array = object.get("updated");
+		JSONArray jsonArray = JSONArray.fromObject(array);
+		for (int i = 0 ; i < jsonArray.size() ; i++ ){
+			String shopid = jsonArray.getJSONObject(i).getString("id");		
+//			String reducepoint = jsonArray.getJSONObject(i).getString("reducepoint");
+			String verifystatus =jsonArray.getJSONObject(i).getString("verifystatus");
+//			String undonecause =jsonArray.getJSONObject(i).getString("undonecause");
+			
+			
+			String[] queryParams = new String[]{"VerifyProxyByManager",verifystatus,shopid};
+			JdbcDatabaseService jdbcService = ApplicationContext.getInstance().getJDBCService();
+			Object r = jdbcService.doService(queryParams);
+			if(r==null){
+				output.accumulate("status", "9999");				
+			}
+			else{
+				output.accumulate("status", "0000");
+			}
+			
+		}
 		
 	}
 	
@@ -2023,6 +2077,8 @@ public class UserAction extends BaseAction
 			if(r!=null){
 					output.accumulate("status", "0000");
 				
+			}else{
+				output.accumulate("status", "9999");
 			}
 		}
 	}
@@ -2041,11 +2097,6 @@ public class UserAction extends BaseAction
 				
 			}
 		}
-	}
-	
-	
-	public void GenQueueID(JSONObject input,JSONObject output){
-		String rtn ="";
 	}
 	
 }
