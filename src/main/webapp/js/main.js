@@ -222,7 +222,7 @@ co.datapersons.manager = {
 				var result = data;
 				var html ="";
 				if(result.rows.length == 0){
-					html = " <span> 您目前没有代理任何区域</span>";
+					html = "<p><span> 您目前没有代理任何区域</span></p>";
 				}else{
 					
 					for(var i= 0; i< result.rows.length; i++){
@@ -375,7 +375,7 @@ co.datapersons.manager = {
 					success : function(data) {
 						console.log(data);
 						var result = data;
-						$("#recommendShop").text(result.result.value);
+						$("#recommendUser").text(result.result.value);
 					}
 				});
 	},
@@ -387,7 +387,8 @@ co.datapersons.manager = {
 					success : function(data) {
 						console.log(data);
 						var result = data;
-						$("#recommendUser").text(result.result.value);
+						$("#recommendShop").text(result.result.value);
+						
 					}
 				});
 	},
@@ -527,9 +528,10 @@ co.datapersons.manager = {
 					var item = result.rows[i];
 					var shopname = item.shopname;
 					var verifystatus = item.verifystatus;
+					var undoncause = item.undonecause;
 					var status = "<span>审核状态：<span class=\"tll\">正在审核</span>";
 					if (verifystatus == "2") {
-						status = " <span>审核状态：<span class=\"tll\">未通过&nbsp;<a href=\"\">查看原因</a></span>";
+						status = " <span>审核状态：<span class=\"tll\">未通过&nbsp;</span><span>审核原因：<span class=\"tll\" id=\"undoncause\">"+undoncause+"</span></span>";
 					}
 					html += "<p class=\"borderBottom\"> "
 							+ " <span>商铺名称：<span class=\"tll\">" + shopname
@@ -1004,10 +1006,10 @@ co.datapersons.manager = {
 										typeStr = "用户";
 									}
 									art.dialog({
-												content : '用户类型不符！此用户是：['+typeStr+"]类型。",
-												cancelVal : 'Close',
-												cancel : true
-											});
+										content : "请从"+typeStr+"入口登录！",
+										cancelVal : 'Close',
+										cancel : true
+									});
 									return;
 								}
 								if (type == "user") {
@@ -1154,6 +1156,34 @@ co.datapersons.manager = {
 			});
 		}
 	},
+	
+	SetPayInfor : function(){
+		var zhifubao = $("#zhifubao").val();
+		var weixin = $("#weixin").val();
+		co.request({
+			action : "user.userperfectAdd",
+			body : {				
+				zhifubao : zhifubao,
+				weixin : weixin
+			},
+			success : function(data) {
+				console.log(data);
+				var result = data;
+				if (result != undefined || result != null) {
+					if (result.status == "0000") {
+						art.dialog({
+									content : '用户信息已保存！',
+									ok : function() {
+										window.location.href = "basalData.html";
+
+									}
+								});
+					}
+				}
+				console.log(data);
+			}
+		});
+	},
 
 	updateUser : function() {
 		var username = $("#userName").val();
@@ -1169,7 +1199,7 @@ co.datapersons.manager = {
 		var mail = $("#mail").val();
 
 		co.request({
-			action : "User.updateUserInfo",
+			action : "user.updateUserInfo",
 			body : {
 				phonenumber : co.datapersons.manager.phonenumber,
 				username : username,
@@ -1479,7 +1509,7 @@ co.datapersons.manager = {
 									name = "";
 								}
 
-								if (bodyattributive == null) {
+								if (bodyattributive == null || bodyattributive == "") {
 									bodyattributive = "";
 								} else {
 									var b = bodyattributive.split("-");
@@ -2182,6 +2212,7 @@ $(function() {
 					.lastIndexOf('/')
 					+ 1, htmlPos);
 	co.datapersons.manager.curPageName = urlName;
+	
 
 	var usertype = Util.getQueryStringByName("usertype");
 	var refereeid = Util.getQueryStringByName("refereeid");
@@ -2376,9 +2407,12 @@ $(function() {
 				action:"user.CheckProxy",
 				body:{area:areaCode},
 				success:function(data){
-					if(data.status == "9999" || data.value > 0){
-						$("#showProxyMessage").html("<div style=\"color:#DC143C\">该区域不可以申请代理！</div>");
+					if(data.status == "9999"){
+						$("#showProxyMessage").html("<div style=\"color:#DC143C\">请完善您的个人信息再次申请代理！</div>");
+					}else if(data.value > 0){
+						$("#showProxyMessage").html("<div style=\"color:#DC143C\">您已提交申请！</div>");
 					}else{
+						$("#showProxyMessage").html("");
 						co.request({
 							action:"user.ApplyProxy",
 							body:{area:areaCode},
@@ -2386,6 +2420,13 @@ $(function() {
 								if(data.status =="0000"){
 									art.dialog({
 										content : "申请已提交，请等待审核！",
+										cancelVal : 'Close',
+										cancel : true
+									})
+								}
+								if (data.status =="9999"){
+									art.dialog({
+										content : "提交失败，请稍后重试！",
 										cancelVal : 'Close',
 										cancel : true
 									})
@@ -2402,6 +2443,17 @@ $(function() {
 	$('#managerloginBtn').click(function() {
 				co.datapersons.manager.managerloginBtn();
 			});
+	
+	$("#SetPayInfor").click(function(){
+		var times = 0;
+		times = judgInputInfor(judgValNull("#zhifubao", "必填"), "#promptZhifubao",
+				times)
+		times = judgInputInfor(judgValNull("#weixin", "必填"),
+				"#promptWeixin", times)
+		if (times == 2) {
+			co.datapersons.manager.SetPayInfor();
+		}
+	})
 
 	$('#updateUserBtn').click(function() {
 		var times = 0;
@@ -2484,9 +2536,9 @@ $(function() {
 			co.datapersons.manager.InsertShopInfor();
 		}
 	});
-
+	
 	if (urlName.indexOf("register") < 0 && urlName.indexOf("index") < 0
-			&& urlName.indexOf("land") < 0 && urlName.indexOf("manager") < 0
+			&& urlName.indexOf("land") < 0 && urlName.indexOf("login") < 0
 			&& urlName.indexOf("find") < 0) {
 		co.datapersons.manager.pageLoad();
 	}

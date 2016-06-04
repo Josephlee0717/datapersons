@@ -62,7 +62,7 @@ co.datapersons.manager = {
 	    			}
 	    			
 	    			if(id == "" || phonenumber== "" ||session =="" || usertype == ""){
-	    				window.location.href = "../index.html"; 
+	    				window.location.href = "login.html"; 
 	    			}    			
 	    		}
 				console.log(data);
@@ -478,6 +478,8 @@ co.datapersons.manager = {
 		});
 	},
 	
+	
+	
 	getShopRegisterByDate : function(){		
 		var date = $("#shopRegister-date").datebox('getValue');
 		co.request({
@@ -694,28 +696,16 @@ co.datapersons.manager = {
 	            align: 'center'  
 	        },  
 	        {  
-	            field: 'registime',  
-	            title: '区域',  
-	            width:170,  
-	            align: 'center'  
-	        },  
-	        {  
-	            field: 'name',  
+	            field: 'proxyid',  
 	            title: '入驻商铺',
 	            width:90,
 	            align: 'center'  
 	        },  
 	        {  
-	            field: 'monthlypayment',  
-	            title: '区月消费',
-	            width:200,
-	            align: 'center'	
-	        },  
-	        {  
-	            field: 'proxyid',  
-	            title: '代理ID',
-	            width:270,
-	            align: 'center'
+	            field: 'area',  
+	            title: '区域',  
+	            width:170,  
+	            align: 'center'  
 	        },  
 	        {  
 	            field: 'proxyshare',  
@@ -725,49 +715,45 @@ co.datapersons.manager = {
 	        },  
 	        {  
 	            field: 'areausernumber',  
-	            title: '代理收益',
+	            title: '代理区域用户数',
 	            width:100,
 	            align: 'center'
 	        },  
 	        {  
 	            field: 'areashopnumber',  
-	            title: '代理类型',
+	            title: '代理区域商户数',
 	            width:100,
 	            align: 'center'
 	        },  
 	        {  
 	            field: 'monthtransac',  
-	            title: '共代理区',
+	            title: '区域月交易',
 	            width:100,
-	            align: 'center'
+	            align: 'center',
+	            hide:true
 	        },  
 	        {  
 	            field: 'monthlypayment',  
-	            title: '姓名',
-	            width:100,
-	            align: 'center'
+	            title: '区月消费',
+	            width:200,
+	            align: 'center'	
 	        },  
 	        {  
 	            field: 'whetherproxy',  
-	            title: '手机号码',
+	            title: '是否有代理',
 	            width:100,
-	            align: 'center'
+	            align: 'center',
+	            hide:true
 	        },  
 	        {  
 	            field: 'verifytime',  
-	            title: '手机号码',
+	            title: '审核时间',
 	            width:100,
 	            align: 'center'
 	        },  
 	        {  
 	            field: 'checkpeople',  
-	            title: '手机号码',
-	            width:100,
-	            align: 'center'
-	        },  
-	        {  
-	            field: 'refereecount',  
-	            title: '代理设置时间',
+	            title: '审核人',
 	            width:100,
 	            align: 'center'
 	        },  
@@ -779,18 +765,78 @@ co.datapersons.manager = {
 	        },  
 	        {  
 	            field: 'undonecause',  
-	            title: '用户资料',
+	            title: '未审核原因',
 	            width:100,
 	            align: 'center'
 	        },  
 	        {  
-	            field: 'undonecause',  
-	            title: '审核人',
+	            field: 'verifystatus',  
+	            title: '审核状态',
 	            width:100,
-	            align: 'center'
+	            align: 'center',
+	            editor: { 
+	            	type: 'combobox', 
+	            	options: {
+	            		url:'js/verifyStatus.json',
+	            		method:'get',
+	            		valueField: 'varifyValue',	            		
+	            		textField: 'verifyText',
+	            		editable: false
+	            	}
+	            }
 	        }
 	        
-	        ]]
+	        ]],
+	        toolbar:[
+	     	        {
+	     	        	text:"编辑",
+	     	        	iconCls:"icon-edit",
+	     	        	handler:function(){
+	     	        		var row = $("#proxyTable").datagrid("getSelected");
+	     	        		if(row){
+	     	        			var rowIdx = $("#proxyTable").datagrid("getRowIndex",row);
+	     	        			$("#proxyTable").datagrid("beginEdit",rowIdx);
+	     	        		}
+	     	        	}
+	     	        
+	     	        },{
+	     	        	text:"结束编辑",
+	     	        	iconCls:"icon-cancel",
+	     	        	handler:function(){
+	     	        		var row =	$("#proxyTable").datagrid("getRows");
+	     	        		for(var i = 0; i< row.length; i ++){
+	     	        			$("#proxyTable").datagrid("endEdit",i);
+	     	        		}
+	     	        	}	        	
+	     	        },{
+	     	        	text:"保存",
+	     	        	iconCls:"icon-save",
+	     	        	handler:function(){
+	     	        		var row =	$("#proxyTable").datagrid("getRows");
+	     	        		for(var i = 0; i< row.length; i ++){
+	     	        			$("#proxyTable").datagrid("endEdit",i);
+	     	        		}
+	     	        		
+	     	        		if($("#proxyTable").datagrid("getChanges").length){
+	     	        			var updated = $("#proxyTable").datagrid("getChanges","updated");
+	     	        			var effectRow = new Object();
+	     	        			if(updated.length){
+	     	        				effectRow["updated"] = JSON.stringify(updated); 
+	     	        			}
+	     	        			
+	     	        			co.request({
+	     	        				action: "user.VerifyProxyByManager",
+	     	        				body:{
+	     	        					updated: effectRow
+	     	        				},
+	     	        				success:function(data){	
+	     	        					co.datapersons.manager.QueryProxyByManager();
+	     	        				}
+	     	        			})
+	     	        		}
+	     	        		
+	     	        	}
+	     	       }]
 	 	});
 	 	
 	 	//设置分页控件 
@@ -993,10 +1039,13 @@ co.datapersons.manager = {
 	            align: 'center'
 	        },  
 	        {  
-	            field: 'undoncause',  
+	            field: 'undonecause',  
 	            title: '未通过原因',
 	            width:100,
-	            align: 'center'
+	            align: 'center',
+	            editor:{
+	            	type: 'textbox'
+	            }
 	        },  
 	        {  
 	            field: 'verifystatus',  
@@ -1021,8 +1070,18 @@ co.datapersons.manager = {
 	            field: 'reducepoint',  
 	            title: '扣点率',
 	            width:100,
-	            align: 'center',
-	            editor : "numberbox"
+	            align: 'center',	            
+	            editor : {
+	            	type:"numberbox",
+	            	options:{
+	            		precision: 2,
+	    	            min:0.10,
+	    	            value: 0.10
+	            	}	
+	            }
+	            
+	            
+	            
 
 	        },  
 	        {  
@@ -1377,14 +1436,14 @@ co.datapersons.manager = {
 	
 	verifyUser: function(){
 		co.request({
-			action:"User.managerVerify",
+			action:"user.managerVerify",
 			body:{},
 			success:function(data){	    			    						
 				var result = data;
 	    		if(result != undefined || result != null){
 	    			if(result.status == "0000"){
 	    				if(result.result.t != "admin"){
-	    					window.location.href = "manager.html";
+	    					window.location.href = "login.html";
 	    				}
 	    			}
 	    		}
@@ -1400,6 +1459,17 @@ co.datapersons.manager = {
 	    		$("#accountManger-ManagerCount").text(result.result.value);
 			}
 		});
+	},
+	QueryProxyByManager:function(){
+		var area = $('#proxyArea').val();
+	 	var d = co.datapersons.buildRequestParam({ action: "User.QueryProxy",body:{area:area}});
+		var params = $.toJSON(d);
+		var queryParams = $('#proxyTable').datagrid('options').queryParams;  
+        queryParams.request = params;
+        
+        $('#proxyTable').datagrid({queryParams: { request: params }});
+        
+	 	$('#proxyTable').datagrid("load");
 	}
 }
 
@@ -1540,17 +1610,11 @@ $(function(){
 	
 	
 	$("#queryForProxy").click(function(){
-		var area = $('#proxyArea').val();
-	 	var d = co.datapersons.buildRequestParam({ action: "User.QueryProxy",body:{area:area}});
-		var params = $.toJSON(d);
-		var queryParams = $('#userTable').datagrid('options').queryParams;  
-        queryParams.request = params;
-        
-        $('#proxyTable').datagrid({queryParams: { request: params }});
-        
-	 	$('#proxyTable').datagrid("reload");
+		co.datapersons.manager.QueryProxyByManager();
 	 	
 	});
+	
+	
 	
 	
 	/*Disturb now*/

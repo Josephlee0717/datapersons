@@ -19,6 +19,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.alipay.util.*"%>
 <%@ page import="com.alipay.config.*"%>
+<%@ page import="co.datapersons.zfb.Recorder"%>
 <%
 	//获取支付宝POST过来反馈信息
 	Map<String,String> params = new HashMap<String,String>();
@@ -48,6 +49,9 @@
 	//交易状态
 	String trade_status = new String(request.getParameter("trade_status").getBytes("ISO-8859-1"),"UTF-8");
 	String extra_common_param = new String(request.getParameter("extra_common_param").getBytes("ISO-8859-1"),"UTF-8");
+	//交易状态
+		
+	String total_fee = new String(request.getParameter("total_fee").getBytes("ISO-8859-1"),"UTF-8");
 
 	//获取支付宝的通知返回参数，可参考技术文档中页面跳转同步通知参数列表(以上仅供参考)//
 
@@ -56,13 +60,12 @@
 		//请在这里加上商户的业务逻辑程序代码
 
 		//——请根据您的业务逻辑来编写程序（以下代码仅作参考）——
-		
+		boolean isSuccess = false;
 		if(trade_status.equals("TRADE_FINISHED")){
 			//判断该笔订单是否在商户网站中已经做过处理
 				//如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
 				//请务必判断请求时的total_fee、seller_id与通知时获取的total_fee、seller_id为一致的
 				//如果有做过处理，不执行商户的业务程序
-				
 			//注意：
 			//退款日期超过可退款期限后（如三个月可退款），支付宝系统发送该交易状态通知
 		} else if (trade_status.equals("TRADE_SUCCESS")){
@@ -70,9 +73,14 @@
 				//如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
 				//请务必判断请求时的total_fee、seller_id与通知时获取的total_fee、seller_id为一致的
 				//如果有做过处理，不执行商户的业务程序
-				
+			isSuccess =true;;	
 			//注意：
 			//付款完成后，支付宝系统发送该交易状态通知
+		}
+		
+		if(isSuccess){
+			Recorder r = new co.datapersons.zfb.Recorder();
+			String rtn = r.saveDb(extra_common_param,out_trade_no,total_fee);
 		}
 
 		//——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
