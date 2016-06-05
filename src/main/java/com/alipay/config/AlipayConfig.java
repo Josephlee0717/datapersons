@@ -25,16 +25,16 @@ public class AlipayConfig {
     public static String key = "l1d6p68ivl61iuq83jbkjecrubkmtg0b";
 
 	// ·þÎñÆ÷Òì²½Í¨ÖªÒ³ÃæÂ·¾¶  Ðèhttp://¸ñÊ½µÄÍêÕûÂ·¾¶£¬²»ÄÜ¼Ó?id=123ÕâÀà×Ô¶¨Òå²ÎÊý£¬±ØÐëÍâÍø¿ÉÒÔÕý³£·ÃÎÊ
-	public static String notify_url = "http://127.0.0.1:8080/datapersons/notify_url.jsp";
+	public static String notify_url = "http://www.qiduwl.com/notify_url.jsp";
 
 	// Ò³ÃæÌø×ªÍ¬²½Í¨ÖªÒ³ÃæÂ·¾¶ Ðèhttp://¸ñÊ½µÄÍêÕûÂ·¾¶£¬²»ÄÜ¼Ó?id=123ÕâÀà×Ô¶¨Òå²ÎÊý£¬±ØÐëÍâÍø¿ÉÒÔÕý³£·ÃÎÊ
-	public static String return_url = "http://127.0.0.1:8080/datapersons/return_url.jsp";
+	public static String return_url = "http://www.qiduwl.com/return_url.jsp";
 
 	// Ç©Ãû·½Ê½
 	public static String sign_type = "MD5";
 	
 	// µ÷ÊÔÓÃ£¬´´½¨TXTÈÕÖ¾ÎÄ¼þ¼ÐÂ·¾¶£¬¼ûAlipayCore.javaÀàÖÐµÄlogResult(String sWord)´òÓ¡·½·¨¡£
-	public static String log_path = "G:\\logs";
+	public static String log_path = "\\logs";
 		
 	// ×Ö·û±àÂë¸ñÊ½ Ä¿Ç°Ö§³Ö gbk »ò utf-8
 	public static String input_charset = "utf-8";
