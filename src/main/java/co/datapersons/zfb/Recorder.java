@@ -139,5 +139,64 @@ public class Recorder {
 		// input every QueueIDs into
 		// return rtn.toString();
 	}
+	
+	public void popuplineup (String userid ,String sPaynumber) {
+		double paynumber = Double.valueOf(sPaynumber);
+		String[] queryParams = new String[] { "GetPayCurId",userid };
+		JdbcDatabaseService jdbcService = ApplicationContext.getInstance().getJDBCService();
+		Object r = jdbcService.doService(queryParams);
+		String id = "";
+		if(r != null){
+			JSONArray result = (JSONArray) r;
+			if (result.size() > 0) {
+				JSONObject jsonResult = result.getJSONObject(0);
+				id =  jsonResult.getString("id");
+			}
+		}
+		String preId = String.valueOf(Double.valueOf(id) - 1);
+		
+		queryParams = new String[] { "GetPayPreBalance",preId };
+		r = jdbcService.doService(queryParams);
+		if(r != null){
+			JSONArray result = (JSONArray) r;
+			String sBalance ="";
+			if (result.size() > 0) {
+				JSONObject jsonResult = result.getJSONObject(0);
+				sBalance = jsonResult.getString("balance");
+			}
+			
+			double balance = Double.valueOf(sBalance);
+			double paySummary = balance + paynumber;
+			String flag = "0";
+			if(paySummary > 2000){
+				balance = paySummary % 2000;
+				flag = "1";
+			}else{
+				balance = paySummary;
+			}
+			
+			queryParams = new String[] { "InsertPayTableBalance",String.valueOf(balance),flag, id };			
+			r = jdbcService.doService(queryParams);
+			//Popupline
+			queryParams = new String[] { "PopupShalllineup"};			
+			r = jdbcService.doService(queryParams);
+			if(r != null){
+				result = (JSONArray) r;
+				JSONObject jsonResult = result.getJSONObject(0);
+				String paytimecalc = jsonResult.getString("paytimecalc");
+				String sUserid = jsonResult.getString("userid");
+				String lineupnummber = jsonResult.getString("lineupnummber");
+				String lineupmoney = jsonResult.getString("lineupmoney");
+				String lineuptime = jsonResult.getString("lineuptime");
+				String sFlag = jsonResult.getString("flag");
+					
+				queryParams = new String[] { "InsertShallupTable",paytimecalc,sUserid, lineupnummber,lineupmoney,lineuptime, sFlag};			
+				r = jdbcService.doService(queryParams);
+				
+				queryParams = new String[] { "DeleteShallupTable",paytimecalc,sUserid, lineupnummber,lineupmoney,lineuptime, sFlag};			
+				r = jdbcService.doService(queryParams);
+			}
+		}
+	}
 
 }
