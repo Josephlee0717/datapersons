@@ -34,7 +34,7 @@ public class AlipayConfig {
 	public static String sign_type = "MD5";
 	
 	// µ÷ÊÔÓÃ£¬´´½¨TXTÈÕÖ¾ÎÄ¼þ¼ÐÂ·¾¶£¬¼ûAlipayCore.javaÀàÖÐµÄlogResult(String sWord)´òÓ¡·½·¨¡£
-	public static String log_path = "\\logs";
+	public static String log_path = "../bin/logs";
 		
 	// ×Ö·û±àÂë¸ñÊ½ Ä¿Ç°Ö§³Ö gbk »ò utf-8
 	public static String input_charset = "utf-8";

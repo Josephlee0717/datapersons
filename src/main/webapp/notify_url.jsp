@@ -78,10 +78,7 @@
 			//付款完成后，支付宝系统发送该交易状态通知
 		}
 		
-		if(isSuccess){
-			Recorder r = new co.datapersons.zfb.Recorder();
-			String rtn = r.saveDb(extra_common_param,out_trade_no,total_fee);
-		}
+		
 
 		//——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
 			
