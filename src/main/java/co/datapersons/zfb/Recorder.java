@@ -40,8 +40,7 @@ public class Recorder {
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String consumeTime = df.format(new Date()).toString();
 			// Ð´Êý¾Ý¿â
-			String[] queryParams = new String[] { "updateConsume", customerid, consumeTime, shopid, out_trade_no, "支付宝",
-					total_fee };
+			String[] queryParams = new String[] { "updateConsume", customerid, consumeTime, shopid, out_trade_no,total_fee };
 			JdbcDatabaseService jdbcService = ApplicationContext.getInstance().getJDBCService();
 			Object r = jdbcService.doService(queryParams);
 			String saveRtn = "Fail";
