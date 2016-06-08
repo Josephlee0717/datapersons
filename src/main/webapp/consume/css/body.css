@@ -23,7 +23,9 @@ ul,li,ol{list-style:none}
 /*about user register*/
 .registerBody .red{color:#ab1324;}
 .registerBody .head{background:#ab1324; color:#FFF; color:#FFF; font-size:26px; border-bottom:1px solid #000; width:100%; position:relative; }
-.registerBody .head a:link,.registerBody .head a:visited{color:#FFF; text-decoration:none; display:inline-block; padding:5px 16px; border-right:1px solid #900010; font-weight:bold;position:absolute; left:0px; top:-1px;} /*Just about return href*/
+.registerBody .head .rebefor a:link,.registerBody .head  .rebefor a:visited{color:#FFF; text-decoration:none; display:inline-block; padding:5px 16px; border-right:1px solid #900010; font-weight:bold;position:absolute; left:0px; top:-1px;}
+.registerBody .head .quit a:link,.registerBody .head .quit a:visited{color:#FFF; text-decoration:none;display:inline-block; padding:0px 10px;position:absolute;right:0px; top:-1px;font-size:12px;line-height:42px;border-left:1px solid #900010;}
+ /*Just about return href*/
 .registerBody .head .title{font-size:16px; text-align:center; display:block; text-shadow:1px 1px 1px #666; margin:0 auto; width:100%; line-height:42px;}
 .registerBody .body{margin:0 10px;}
 .registerBody .body .number{margin:10px 0;}

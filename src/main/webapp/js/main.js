@@ -654,6 +654,10 @@ co.datapersons.manager = {
 				console.log(data);
 				var result = data;
 				var html = "";
+				if(result.rows.length == 0){
+					$("#queryShopIncomeList").html("<p>" + "<span>暂时没有消费记录</span></p>");
+					return ;
+				}
 				for (var i = 0; i < result.rows.length; i++) {
 					var item = result.rows[i];
 					var shopid = item.id;
@@ -669,9 +673,7 @@ co.datapersons.manager = {
 
 					var paynumbermonth = item.paynumbermonth;
 					html += "<p class=\"borderBottom\">" + "<span>用户名称：<span"
-							+ "	class=\"tll\">" + name + "</span>" + "</span>"
-							+ "<span>用户电话：<span" + "	class=\"tll\">"
-							+ phonenumber + "</span>" + "</span>"
+							+ "	class=\"tll\">" + name + "</span>" + "</span>"							
 							+ "<span>支付类型：<span class=\"tll\">" + paytype
 							+ "</span>" + "</span>"
 							+ "<span>交易时间：<span class=\"tll\">" + paytime
@@ -2013,12 +2015,13 @@ co.datapersons.manager = {
 			success : function(data) {
 
 				var type = data.result.t;
-				if (type == "user") {
-					window.location.href = "goinShopping.html?shopid=" + shopid;
-				}
-				if (type == "shop") {
-					window.location.href = "setShopInfor.html?shopid=" + shopid;
-				}
+				window.location.href = "goinShopping.html?shopid=" + shopid;
+//				if (type == "user") {
+//					window.location.href = "goinShopping.html?shopid=" + shopid;
+//				}
+//				if (type == "shop") {
+//					window.location.href = "setShopInfor.html?shopid=" + shopid;
+//				}
 
 			}
 		});
@@ -2585,14 +2588,14 @@ $(function() {
 	// });
 	// });
 
-	$("#nav01").click(function() {
-				var userType = co.datapersons.manager.usertype;
-				if (userType == "user") {
-					window.location.href = "navUserInfor.html";
-				} else {
-					window.location.href = "navShopInfor.html";
-				}
-			});
+//	$("#nav01").click(function() {
+//				var userType = co.datapersons.manager.usertype;
+//				if (userType == "user") {
+//					window.location.href = "navUserInfor.html";
+//				} else {
+//					window.location.href = "navShopInfor.html";
+//				}
+//			});
 
 	$("#nav02").click(function() {
 				window.location.href = "basalData.html";
@@ -2629,6 +2632,19 @@ $(function() {
 	$("#nav11").click(function() {
 				co.datapersons.manager.logout();
 			});
+	$("#nav21").click(function() {
+		window.location.href = "navUserInfor.html";
+	});
+	$("#nav24").click(function() {
+		window.location.href = "navShopInfor.html";
+	});
+	$("#nav22").click(function() {
+		window.location.href = "newUserInfor.html";
+	});
+	
+	$("#nav23").click(function() {
+		window.location.href = "helpUser.html";
+	});
 
 	$(".dHeight").click(function() {
 				window.location.href = "goinShopping.html";

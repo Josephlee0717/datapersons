@@ -26,8 +26,9 @@
  <div class="registerBody">
    <!--floor-->
    <div class="head">
-    <span><a href="javascript:history.back(-1);" id="return"><</a></span>
+    <span class="rebefor"><a href="javascript:history.back(-1);" id="return"><</a></span>
     <span class="title">消费养老系统</span>
+    <span class="quit"><a href="javascript:;" id="nav11">退出</a></span>
    </div>
    <!--body-->
    <div class="body">
@@ -42,12 +43,18 @@
       <span>品牌名称</span>
       <span><input type="text" id="sign"></span>
       <div id="promptSign"></div>  
+     </p>
+      <p>
       <span>商店全称(营业执照名)</span>
       <span><input type="text" required="required" id="shopName"></span> 
       <div id="promptShopName"></div>
+       </p>
+       <p>
       <span>商店地址</span>
       <span><input type="text" required="required" id="shopAddress"></span>   
       <div id="promptAddress"></div>
+      </p>
+      <p>
       <span>所属区域</span>
 	  <span class="tll">
         <select id="userSeachprov" name="userSeachprov" onChange="changeComplexProvince(this.value, sub_array, 'userSeachcity', 'userSeachdistrict');"></select>
@@ -57,19 +64,26 @@
         </span>
       </span>
        <div id="promptArea"></div>  
+       </p>
      <!--
       <span>缁勭粐缁撴瀯浠ｇ爜璇�/span>
            <span><input type="text" required="required" id="organizeNumber"></span>     -->
-     
+     <p>
       <span>法人/负责人</span>
       <span><input type="text" required="required" id="incorporator"></span>   
-       <div id="promptImport"></div>   
+       <div id="promptImport"></div>
+       </p>   
+       <p>
       <span>联系方式</span>
       <span><input type="text" required="required" id="incorporatorNumber"></span>   
-       <div id="promptPhone"></div>    
+       <div id="promptPhone"></div> 
+       </p>   
+       <p>
        <span>业执照号</span>
       <span><input type="text" required="required" id="orgNumber"></span>
-       <div id="promptOrgNumber"></div>    
+       <div id="promptOrgNumber"></div>  
+       </p>  
+       <p>
       <span>店铺类型</span>
       <span><input type="text" required="required" id="shopType"></span>       
        <div id="promptShopType"></div>                    
@@ -84,39 +98,39 @@
   </div>
 
   <!--End-Menu-->
-  <div class="endMenu">
+ <div class="endMenu">
     <div class="button">≡<div class="buttonLight"></div></div>
     <div class="nav">
     <div class="menu">
-     <div class="title"><a href="javascript:;" id="nav01">信息中心</a></div>
+     <div class="title"><a href="javascript:;" id="navShop">附件店铺</a></div>
     </div><!--menu-->
     <div class="menu">
     <div class="title">用户中心</div>
     <div class="trigon"></div>
       <ul class="option">
+	<li><a href="javascript:;" id="nav21">信息中心</a></li>
         <li><a href="javascript:;" id="nav02">用户资料</a></li>
-        <li><a href="javascript:;" id="nav03">消费返利</a></li>
+        <li><a href="javascript:;" id="nav03">消费全返</a></li>
         <li><a href="javascript:;" id="nav04">推荐管理</a></li>
-        <li><a href="javascript:;" id="nav05">代理信息</a></li>
-        <li><a href="javascript:;" id="navShop">进入商店</a></li>
-        <li><a href="javascript:;" id="nav06">店铺管理</a></li>   
+        <li><a href="javascript:;" id="nav22">用户通知</a></li>
+        <li><a href="javascript:;" id="nav23">帮助中心</a></li>
         <li><a href="javascript:;" id="nav07">转账记录</a></li>                        
       </ul>
     </div><!--menu-->
     <div class="menu" >
-     <div class="title">帮助中心</div>
+    <div class="title">商户中心</div>
     <div class="trigon"></div>
-        <ul class="option">
-         <li><a href="javascript:;" id="nav08">最新通知</a></li>
-         <li><a href="javascript:;" id="nav09">帮助中心</a></li>
-         <li><a href="javascript:;" id="nav10">联系客服</a></li>
-         <li><a href="javascript:;" id="nav11">登出</a></li>
-        </ul>
+      <ul class="option">
+	<li><a href="javascript:;" id="nav24">信息中心</a></li>
+        <li><a href="javascript:;" id="nav06">店铺管理</a></li>   
+        <li><a href="javascript:;" id="nav05">代理信息</a></li>
+        <li><a href="javascript:;" id="nav10">联系客服</a></li>
+        <li><a href="javascript:;" id="nav08">最新通知</a></li>
+        <li><a href="javascript:;" id="nav09">帮助中心</a></li>
+      </ul>
     </div><!--menu-->
  </div>
  </div><!--menuwrap-->
- <!-- <div class="blankButton"></div> -->
-
-      
+ <!-- <div class="blankButton"></div> -->   
 </body>
 </html>
