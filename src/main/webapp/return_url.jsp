@@ -80,9 +80,10 @@
 		}
 		
 		//该页面可做页面美工编辑
-		out.println("支付成功<br />");
+		out.println("支付成功<br /><div style='width:100%;height:77px;text-align:center;margin-top:40px'><input style='width:150px;height:40px' type='button' value='返回' onclick=\"javascript:window.location.href ='about:blank';window.opener = null;window.open('', '_self');window.close();\"></input></div>");
 		//——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
-
+		
+		// response.setHeader("Location","");
 		//////////////////////////////////////////////////////////////////////////////////////////
 	}else{
 		//该页面可做页面美工编辑

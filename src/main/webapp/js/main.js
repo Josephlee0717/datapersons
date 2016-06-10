@@ -1596,10 +1596,12 @@ co.datapersons.manager = {
 				if (result != undefined || result != null) {
 					if (result.status == "0000") {
 						co.datapersons.manager.usertype = result.result.t;
-						$("#userid").val(result.result.i);
+						
 						if(result.result.t == "user"){
 							$("#consumerid").val(result.result.i);
 							$('#consumerid').attr("readonly",true)
+						}else{
+//							$("#userid").val(result.result.i);
 						}
 						co.datapersons.manager.phonenumber = result.result.p;
 						co.request({
@@ -2705,7 +2707,7 @@ $(function() {
 			});
 
 	$("#shoppingBtn").click(function() {
-				var shopid = "1";
+				var shopid = Util.getQueryStringByName("shopid");
 				window.location.href = "addPayInfor.html?shopid=" + shopid;
 			});
 	// $("#btnUpload").click(function() {
