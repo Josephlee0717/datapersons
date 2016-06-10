@@ -32,15 +32,16 @@ public class Recorder {
 		String rtn = extraCommon;
 		int fistIdx = rtn.indexOf("@");
 		int secIdx = rtn.indexOf("#");
-		try {
-			String customerid = rtn.substring(0, fistIdx);
-			String shopid = rtn.substring(fistIdx + 1, secIdx);
-			String shopname = rtn.substring(secIdx + 1, rtn.length());
+		String customerid = rtn.substring(0, fistIdx);
+		String shopid = rtn.substring(fistIdx + 1, secIdx);
+		String shopname = rtn.substring(secIdx + 1, rtn.length());
 
-			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			String consumeTime = df.format(new Date()).toString();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String consumeTime = df.format(new Date()).toString();
+		try {
+			
 			// Ð´Êý¾Ý¿â
-			String[] queryParams = new String[] { "updateConsume", customerid, consumeTime, shopid, out_trade_no,total_fee };
+			String[] queryParams = new String[] { "updateConsume", customerid, consumeTime, shopid, out_trade_no,"支付宝",total_fee };
 			JdbcDatabaseService jdbcService = ApplicationContext.getInstance().getJDBCService();
 			Object r = jdbcService.doService(queryParams);
 			String saveRtn = "Fail";
@@ -56,7 +57,8 @@ public class Recorder {
 			logger.info("ZFB result=" + extraCommon + ";customerid=" + customerid + ";shopid=" + shopid + ";shopname="
 					+ shopname + "; trade_no=" + out_trade_no + "; total_fee=" + total_fee + ";saveRtn=" + saveRtn);
 		} catch (Exception ex) {
-			logger.error("ZFB result=" + ex);
+			logger.error("ZFB result=" + ex +"---"+ extraCommon + ";customerid=" + customerid + ";shopid=" + shopid + ";shopname="
+					+ shopname + "; trade_no=" + out_trade_no + "; total_fee=" + total_fee );
 		}
 		return "ZFB result=" + extraCommon + " has insert into db";
 	}
