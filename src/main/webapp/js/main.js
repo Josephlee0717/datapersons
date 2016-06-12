@@ -21,12 +21,13 @@
 	},
 
 	init : function() {
-
+		
 	}
 
 };
 
 co.datapersons.manager = {
+	ver:"20160612A",
 	userid : "",
 	phonenumber : "",
 	identitycard:"",
@@ -42,6 +43,14 @@ co.datapersons.manager = {
 		}
 
 	},
+	
+	consumeName:function(url){
+		return url+"?ver="+co.datapersons.manager.ver;
+	},
+	
+	getRandom:function(){
+        co.datapersons.manager.ver = co.datapersons.manager.ver+"&r=" +  Math.floor(Math.random()*999+1);
+    },
 
 	pageLoad : function() {
 		co.request({
@@ -2216,7 +2225,14 @@ $(function() {
 					+ 1, htmlPos);
 	co.datapersons.manager.curPageName = urlName;
 	
-
+	/*
+	 * Modify: Add pages switch
+	 * Lijun
+	 * 20160612A
+	 */
+	co.datapersons.manager.getRandom();
+	//======================================
+	
 	var usertype = Util.getQueryStringByName("usertype");
 	var refereeid = Util.getQueryStringByName("refereeid");
 
