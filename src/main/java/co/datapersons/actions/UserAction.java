@@ -451,10 +451,8 @@ public class UserAction extends BaseAction
 			
 		}
 	}
-	//=================================
-	//Modified function by Joseph Lee 
-	//2016-04-28
-	public void GetReturnFee(JSONObject input,JSONObject output){
+
+	public void GetHistorySum(JSONObject input,JSONObject output){
 		if(this.getSession().getAttribute("userid") != null){
 			String userid = this.getSession().getAttribute("userid").toString();;
 			JdbcDatabaseService jdbcService = ApplicationContext.getInstance().getJDBCService();
@@ -466,8 +464,31 @@ public class UserAction extends BaseAction
 				JSONArray result = (JSONArray)r;
 				if(result.size()>0){
 					JSONObject jsonResult = result.getJSONObject(0);
-					String curReturnFee =  jsonResult.getString("returnfee");					
-					
+					String curReturnFee =  jsonResult.getString("returnfee");
+					output.put("value", curReturnFee);
+					output.accumulate("status", "0000");
+				}
+			}
+		}
+	}
+	//=================================
+	//Modified function by Joseph Lee 
+	//2016-04-28
+	public void GetReturnFee(JSONObject input,JSONObject output){
+		String rtnFee = "0";
+		if(this.getSession().getAttribute("userid") != null){
+			String userid = this.getSession().getAttribute("userid").toString();;
+			JdbcDatabaseService jdbcService = ApplicationContext.getInstance().getJDBCService();
+			String[] queryParams = new String[]{"GetRecommendShopReturnFeeByUserid",userid};
+			DecimalFormat   df = new DecimalFormat("######0.00");   
+			Object r = jdbcService.doService(queryParams);
+			Double returnFee = 0.0;
+			if(r!=null){
+				JSONArray result = (JSONArray)r;
+				if(result.size()>0){
+					JSONObject jsonResult = result.getJSONObject(0);
+					String curReturnFee =  jsonResult.getString("returnfee");	
+					rtnFee = curReturnFee;
 					returnFee += Double.parseDouble(curReturnFee);
 					
 				}
@@ -500,22 +521,23 @@ public class UserAction extends BaseAction
 				}
 			}
 			
-			queryParams = new String[]{"GetProxyReturnFeeByUserid",userid};
-			r = jdbcService.doService(queryParams);
-			if(r!=null){
-				JSONArray result = (JSONArray)r;
-				if(result.size()>0){
-					JSONObject jsonResult = result.getJSONObject(0);
-					String curReturnFee =  jsonResult.getString("returnfee");					
-					
-					returnFee += Double.parseDouble(curReturnFee);
-					
-				}
-			}
+//			queryParams = new String[]{"GetProxyReturnFeeByUserid",userid};
+//			r = jdbcService.doService(queryParams);
+//			if(r!=null){
+//				JSONArray result = (JSONArray)r;
+//				if(result.size()>0){
+//					JSONObject jsonResult = result.getJSONObject(0);
+//					String curReturnFee =  jsonResult.getString("returnfee");					
+//					
+//					returnFee += Double.parseDouble(curReturnFee);
+//					
+//				}
+//			}
 			
 			JSONObject userInforesult = new JSONObject();				
 			userInforesult.put("value", df.format(returnFee).toString());
-				
+			userInforesult.put("returnFee", rtnFee);
+			
 			output.put("result", userInforesult);
 			output.accumulate("status", "0000");
 			

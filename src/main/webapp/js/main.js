@@ -21,12 +21,13 @@
 	},
 
 	init : function() {
-
+		
 	}
 
 };
 
 co.datapersons.manager = {
+	ver:"20160612A",
 	userid : "",
 	phonenumber : "",
 	identitycard:"",
@@ -42,6 +43,14 @@ co.datapersons.manager = {
 		}
 
 	},
+	
+	consumeName:function(url){
+		return url+"?ver="+co.datapersons.manager.ver;
+	},
+	
+	getRandom:function(){
+        co.datapersons.manager.ver = co.datapersons.manager.ver+"&r=" +  Math.floor(Math.random()*999+1);
+    },
 
 	pageLoad : function() {
 		co.request({
@@ -304,9 +313,22 @@ co.datapersons.manager = {
 						console.log(data);
 						var result = data;
 						$("#returnFee").text(result.result.value);
-						$("#returnFee1").text(result.result.value);
+						co.datapersons.manager.GetHistorySum();
 					}
 				});
+	},
+	
+	GetHistorySum:function(){
+		co.request({
+			action : "user.GetHistorySum",
+			body : {},
+			success : function(data) {
+				console.log(data);
+				var result = data;
+				
+				$("#returnFee1").text(result.value);
+			}
+		});
 	},
 
 	GetRecommendCount : function() {
@@ -484,6 +506,10 @@ co.datapersons.manager = {
 					var shopaddress = item.shopaddress;
 					var paynumber = item.paynumber;
 					var paynumbermonth = item.paynumbermonth;
+					var borderBottom = "borderBottom" ;
+					if(i == result.rows.length - 1){
+						borderBottom = "";
+					}
 					html += "<p class=\"borderBottom\">  <span>商铺名称：<span class=\"tll\">"
 							+ shopname
 							+ "</span></span>  </p>"
@@ -497,7 +523,7 @@ co.datapersons.manager = {
 							+ paynumbermonth
 							+ "</span> 元</span>"
 							+ " </p> "
-							+ "  <p class=\"borderBottom\">"
+							+ "  <p class=\""+borderBottom+"\">"
 							+ " <span><a href=\"addPayInfor.html?shopid="
 							+ shopid
 							+ "\">添加用户消费</a></span>     "
@@ -1423,7 +1449,7 @@ co.datapersons.manager = {
 								// 取出返回值
 								var bodyattributive = result.result.bodyattributive;
 
-								var curArea = "";
+								var curArea = "无";
 
 								if (bodyattributive == null) {
 									bodyattributive = "";
@@ -2065,7 +2091,7 @@ co.datapersons.manager = {
 						if(image){
 							image = image.replaceAll("//","\\")
 						}else{
-							image="";
+							image="images\\shopsmall.jpg";
 						}
 						html += "<div class=\"borderBottom dHeight\" onclick='co.datapersons.manager.gotoShop("
 								+ shopid
@@ -2085,7 +2111,7 @@ co.datapersons.manager = {
 								+ "</span></div>" + "</div>" + "</div>";
 					}
 				}
-
+				$("#shopsCount").text(data.rows.length);
 				$("#shopsList").html(html);
 			}
 		});
@@ -2109,6 +2135,10 @@ co.datapersons.manager = {
 						var phone = data.rows[0].phone;
 						if (phone == null)
 							phone = "";
+						
+						if(image == null || image == undefined || image == ""){
+							image = "images\\shopbg.jpg";
+						}
 						$("#shopid").text(shopid);
 						$("#shopname").text(shopname);
 						$("#shoptype").text(shoptype);
@@ -2218,7 +2248,14 @@ $(function() {
 					+ 1, htmlPos);
 	co.datapersons.manager.curPageName = urlName;
 	
-
+	/*
+	 * Modify: Add pages switch
+	 * Lijun
+	 * 20160612A
+	 */
+	co.datapersons.manager.getRandom();
+	//======================================
+	
 	var usertype = Util.getQueryStringByName("usertype");
 	var refereeid = Util.getQueryStringByName("refereeid");
 
