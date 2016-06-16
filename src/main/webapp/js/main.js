@@ -102,6 +102,7 @@ co.datapersons.manager = {
 					} else if (co.datapersons.manager.curPageName == "navShopManage") {
 						co.datapersons.manager.GetShopIncomeByUserid();
 						co.datapersons.manager.GetShopCountByUserid();
+						co.datapersons.manager.QueryShopSumToday();
 						co.datapersons.manager.QueryShopIncomeDetailByUserid();
 					} else if (co.datapersons.manager.curPageName == "tdcode") {
 						co.datapersons.manager.GenRefereeURL();
@@ -313,6 +314,8 @@ co.datapersons.manager = {
 						console.log(data);
 						var result = data;
 						$("#returnFee").text(result.result.value);
+						$("#recommendIncome").text(result.result.RecommendFeeConsume);
+						$("#consumeRate").text(result.result.consumeRate);
 						co.datapersons.manager.GetHistorySum();
 					}
 				});
@@ -385,7 +388,7 @@ co.datapersons.manager = {
 					success : function(data) {
 						console.log(data);
 						var result = data;
-						$("#recommendIncome").text(result.result.value);
+						//$("#recommendIncome").text(result.result.value);
 					}
 				});
 	},
@@ -471,6 +474,9 @@ co.datapersons.manager = {
 						console.log(data);
 						var result = data;
 						$("#shopCount").text(result.result.value);
+						$("#curDayTradeCount").text(result.result.curDayTradeCount);
+//						$("#curDayIncome").text(result.result.curDayIncome);
+						$("#curDayIncomeAfter").text(result.result.curDayIncomeAfter);
 					}
 				});
 	},
@@ -505,8 +511,11 @@ co.datapersons.manager = {
 					var shopname = item.shopname;
 					var shopaddress = item.shopaddress;
 					var paynumber = item.paynumber;
-					var paynumbermonth = item.paynumbermonth;
+					var paynumbertoday = item.paynumbertoday;
 					var borderBottom = "borderBottom" ;
+					var todayTradeCount =item.todaytradecount;
+					var reducepoint = item.reducepoint;
+					var paynumberAfterreduce = item.paynumberafterreduce;
 					if(i == result.rows.length - 1){
 						borderBottom = "";
 					}
@@ -516,12 +525,18 @@ co.datapersons.manager = {
 							+ " <p class=\"borderBottom\">  <span>商铺所属区域：<span class=\"tll\">"
 							+ shopaddress
 							+ "</span></span> "
-							+ "  <span>通过系统营业额：<span class=\"tll\">"
-							+ paynumber
+							+ "  <span>店铺当日交易数：<span class=\"tll\">"
+							+ todayTradeCount
+							+ "</span> </span>"
+							+ "<span>店铺当日营业额：<span class=\"tll\">"
+							+ paynumbertoday
 							+ "</span> 元</span>"
-							+ "<span>通过系统月营业：<span class=\"tll\">"
-							+ paynumbermonth
+							+ "<span>扣点后的营业额：<span class=\"tll\">"
+							+ paynumberAfterreduce
 							+ "</span> 元</span>"
+							+ "<span>平台扣点百分比：<span class=\"tll\">"
+							+ reducepoint
+							+ "</span></span>"
 							+ " </p> "
 							+ "  <p class=\""+borderBottom+"\">"
 							+ " <span><a href=\"addPayInfor.html?shopid="
@@ -580,6 +595,7 @@ co.datapersons.manager = {
 						var paynumber = result.result.paynumber;
 						$("#todayPaynumber").text(paynumber);
 						$("#todayCount").text(count);
+						$("#curDayIncome").text(paynumber);
 					}
 				});
 	},
@@ -2636,55 +2652,79 @@ $(function() {
 //				}
 //			});
 
-	$("#nav02").click(function() {
-				window.location.href = "basalData.html";
-			});
-	$("#nav03").click(function() {
-				window.location.href = "line.html";
-			});
-	$("#nav04").click(function() {
-				window.location.href = "navRecommend.html";
-			});
-	$("#nav05").click(function() {
-				window.location.href = "navAgent.html";
-			});
-
-	$("#navShop").click(function() {
-				window.location.href = "navShopsInfor.html";
-			});
-
-	$("#nav06").click(function() {
-				window.location.href = "navShopManage.html";
-			});
-	$("#nav07").click(function() {
-				window.location.href = "navTransfer.html";
-			});
-	$("#nav08").click(function() {
-				window.location.href = "newinfor.html";
-			});
-	$("#nav09").click(function() {
-				window.location.href = "help.html";
-			});
-	$("#nav10").click(function() {
-				window.location.href = "servicepeoson.html";
-			});
+//	$("#nav02").click(function() {
+//				window.location.href = "basalData.html";
+//			});
+//	$("#nav03").click(function() {
+//				window.location.href = "line.html";
+//			});
+//	$("#nav04").click(function() {
+//				window.location.href = "navRecommend.html";
+//			});
+//	$("#nav05").click(function() {
+//				window.location.href = "navAgent.html";
+//			});
+//
+//	$("#navShop").click(function() {
+//				window.location.href = "navShopsInfor.html";
+//			});
+//
+//	$("#nav06").click(function() {
+//				window.location.href = "navShopManage.html";
+//			});
+//	$("#nav07").click(function() {
+//				window.location.href = "navTransfer.html";
+//			});
+//	$("#nav08").click(function() {
+//				window.location.href = "newinfor.html";
+//			});
+//	$("#nav09").click(function() {
+//				window.location.href = "help.html";
+//			});
+//	$("#nav10").click(function() {
+//				window.location.href = "servicepeoson.html";
+//			});
 	$("#nav11").click(function() {
 				co.datapersons.manager.logout();
 			});
-	$("#nav21").click(function() {
-		window.location.href = "navUserInfor.html";
-	});
-	$("#nav24").click(function() {
-		window.location.href = "navShopInfor.html";
-	});
-	$("#nav22").click(function() {
-		window.location.href = "newUserInfor.html";
-	});
-	
-	$("#nav23").click(function() {
-		window.location.href = "helpUser.html";
-	});
+//	$("#nav21").click(function() {
+//		window.location.href = "navUserInfor.html";
+//	});
+//	$("#nav24").click(function() {
+//		window.location.href = "navShopInfor.html";
+//	});
+//	$("#nav22").click(function() {
+//		window.location.href = "newUserInfor.html";
+//	});
+//	
+//	$("#nav23").click(function() {
+//		window.location.href = "helpUser.html";
+//	});
 
+	$(".dClick").click(function(){
+		   $(".dClick span").removeClass("red");
+		   var imgarray = $(".dClick img");
+		   imgarray.eq(0).attr("src","img/navone.png")
+		   imgarray.eq(1).attr("src","img/navtwo.png")
+		   imgarray.eq(2).attr("src","img/navthree.png")	   	   
+		   var imgSrc = $(this).children("span").first().children("img").attr("src")
+		   imgSrc = imgSrc.replace(".png","red.png");
+		   $(this).children("span").first().children("img").attr("src",imgSrc)
+		   $(this).children("span").last().addClass("red");
+		   if($(this).children("span")[1].innerText == "个人中心"){
+			   window.location.href ="navuser.html";
+		   }
+		   
+		   if($(this).children("span")[1].innerText == "商户中心"){
+			   window.location.href ="navshop.html";
+		   }
+		   
+		   if($(this).children("span")[1].innerText == "商店"){
+			   
+		   }
+	    })
+	    
+	    
 	$(".dHeight").click(function() {
 				window.location.href = "goinShopping.html";
 			})

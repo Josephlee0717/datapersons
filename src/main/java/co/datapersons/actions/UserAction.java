@@ -493,7 +493,7 @@ public class UserAction extends BaseAction
 					
 				}
 			}
-			
+			Double RecommendFeeConsume = 0.0;
 			queryParams = new String[]{"GetUserReturnFeeByUserid",userid};
 			
 			r = jdbcService.doService(queryParams);
@@ -504,7 +504,7 @@ public class UserAction extends BaseAction
 					String curReturnFee =  jsonResult.getString("returnfee");					
 					
 					returnFee += Double.parseDouble(curReturnFee);
-					
+					RecommendFeeConsume += Double.parseDouble(curReturnFee);
 				}
 			}
 			
@@ -517,7 +517,7 @@ public class UserAction extends BaseAction
 					String curReturnFee =  jsonResult.getString("returnfee");					
 					
 					returnFee += Double.parseDouble(curReturnFee);
-					
+					RecommendFeeConsume += Double.parseDouble(curReturnFee);
 				}
 			}
 			
@@ -533,11 +533,23 @@ public class UserAction extends BaseAction
 //					
 //				}
 //			}
+			String consumeRate = "";
+			queryParams = new String[]{"GetConsumeRate",userid};
+			r = jdbcService.doService(queryParams);
+			if(r!=null){
+				JSONArray result = (JSONArray)r;
+				if(result.size()>0){
+					JSONObject jsonResult = result.getJSONObject(0);
+					consumeRate =  jsonResult.getString("value");
+					
+				}
+			}
 			
 			JSONObject userInforesult = new JSONObject();				
 			userInforesult.put("value", df.format(returnFee).toString());
 			userInforesult.put("returnFee", rtnFee);
-			
+			userInforesult.put("RecommendFeeConsume", RecommendFeeConsume);
+			userInforesult.put("consumeRate", consumeRate);
 			output.put("result", userInforesult);
 			output.accumulate("status", "0000");
 			
@@ -685,21 +697,40 @@ public class UserAction extends BaseAction
 			String[] queryParams = new String[]{"GetShopCountByUserid",userid};
 			JdbcDatabaseService jdbcService = ApplicationContext.getInstance().getJDBCService();
 			Object r = jdbcService.doService(queryParams);
-			
+			JSONObject userInforesult = new JSONObject();	
 			if(r!=null){
 				JSONArray result = (JSONArray)r;
 				if(result.size()>0){
 					JSONObject jsonResult = result.getJSONObject(0);
-					String count =  jsonResult.getString("count");						
-					
-					JSONObject userInforesult = new JSONObject();				
-					userInforesult.put("value", count);
-						
-					output.put("result", userInforesult);
-					output.accumulate("status", "0000");
+					String count =  jsonResult.getString("count");			
+					userInforesult.put("value", count);					
 				}
 			}
 			
+			queryParams = new String[]{"GetCurDayTradeCount",userid};
+			r = jdbcService.doService(queryParams);
+			if(r!=null){
+				JSONArray result = (JSONArray)r;
+				if(result.size()>0){
+					JSONObject jsonResult = result.getJSONObject(0);
+					String curDayTradeCount =  jsonResult.getString("curdaytradecount");
+					userInforesult.put("curDayTradeCount", curDayTradeCount);
+				}
+			}
+			
+			queryParams = new String[]{"GetCurDayIncomeAfter",userid};
+			r = jdbcService.doService(queryParams);
+			if(r!=null){
+				JSONArray result = (JSONArray)r;
+				if(result.size()>0){
+					JSONObject jsonResult = result.getJSONObject(0);
+					String curDayIncomeAfter =  jsonResult.getString("curdayincomeafter");	
+					userInforesult.put("curDayIncomeAfter", curDayIncomeAfter);
+					
+				}
+			}
+			output.put("result", userInforesult);
+			output.accumulate("status", "0000");
 		}
 	}
 	public void GetShopIncomeByUserid(JSONObject input,JSONObject output){
