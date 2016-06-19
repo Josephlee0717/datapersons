@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <link rel="icon" href="../images/logo.png" />
+ <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+ <title>转账记录</title> 
+ <link rel="stylesheet" href="css/body.css" /> 
+ <script src="../js/Area.js" type="text/javascript"></script>
+ <script src="../js/AreaData_min.js" type="text/javascript"></script>
+ <!-- <script src="../js/tll.js" type="text/javascript"></script>  -->
+ <script src="../js/jquery/jquery-1.11.0.min.js" type="text/javascript"></script>
+ <script type="text/javascript" src="../js/jquery/jquery.json-2.3.min.js"></script>
+ <link rel="stylesheet" href="../js/artDialog/skins/black.css?4.1.2"></link>
+ <script src="../js/artDialog/artDialog.source.js?skin=black"></script>
+ <script src="../js/daily.js" type="text/javascript"></script>  
+ <script src="../js/common.js" type="text/javascript"></script> 
+ <script src="../js/util.js" type="text/javascript"></script>
+ <script src="../js/main.js" type="text/javascript"></script> 
+ <style>  
+  .userInfor .body{margin:0 auto;}
+  .userInfor .top{background:#F90;height:80px;padding:5px;}
+  .userInfor .content{padding:10px 5px;height:20px;}
+  .userInfor .content span{line-height:20px;}
+  .userInfor .navPicture{padding:10px 5px;height:30px;}
+  .userInfor .navPicture div{width:20%;text-align:center;}  
+  .userInfor .floorNav{padding:10px 5px;height:30px;}
+  .userInfor .floorNav div{width:33%;text-align:center;}  
+  .userInfor .floorNav div span{width:100%;display:inline-block;}  
+  .userInfor .filling{background:#EFEFEF;padding:5px;}
+  .userInfor .bollom{padding:10px 5px;height:90px;background:#EFEFEF;text-align:center;}
+  .userInfor .borderBottom{border-bottom:1px solid #EFEFEF;background:#fff;}
+  .userInfor .body p{line-height:25px;}
+  .userInfor .body .left{width:90px;float:left;}
+  .userInfor .body .leftTwo{float:left;margin-right:5px;}
+  .userInfor .body .leftThree{float:left;}
+  .userInfor .body .right{float:left;}
+  .userInfor .body .rightTwo{float:right;}
+  .userInfor .body .colorRed{color:red;}
+  .userInfor .floor{height:35px;background-color:#F7F7F7;background: -webkit-linear-gradient(top, #FAFAFA 0%,#E9E9E9 100%);
+         background-image: -webkit-linear-gradient(top, rgb(250, 250, 250) 0%, rgb(240, 240, 240) 100%);
+		 position:fixed;margin:auto;bottom:0;left:0;right:0;padding:5px;}	 
+ </style>
+
+</head> 
+<body>
+
+  <div class="registerBody">
+   <div class="head">
+    <span class="rebefor"><a href="javascript:history.back(-1);" id="return"><</a></span>
+    <span class="title">消费养老系统</span>
+    <span class="quit"><a href="javascript:;" id="nav11">退出</a></span>
+   </div>
+  </div>
+
+<div class="userInfor">
+ <div class="body top">
+  <div class="left">
+   <img src="images/logo.jpg" />
+  </div>
+  <div class="right">
+    <p>会员ID：<span id='curUserId'></span></p>
+    <p>会员等级：<span id='curUserLevel'>普通用户</span></p>
+    <p>会员类型：<span id='curUserType' ></span></p>
+  </div>
+ </div>
+ <div class="body filling"></div>
+ <div class="body content borderBottom">
+  <div class="leftTwo"><img src="images/nav.png"></div>
+  <div class="left"><span>我的订单</span></div>  
+  <div class="rightTwo"><p><span>查看全部订单 ></span></p></div> 
+ </div> 
+ <div class="body navPicture">
+  <div class="leftThree"><img src="images/payTwo.png"></div>
+  <div class="leftThree"><img src="images/objectTwo.png"></div>  
+  <div class="leftThree"><img src="images/carTwwo.png"></div>    
+  <div class="leftThree"><img src="images/maneyTwo.png"></div>      
+  <div class="leftThree"><img src="images/returnTwo.png"></div>      
+ </div> 
+ <div class="body filling"></div> 
+ <div class="body content borderBottom" id='popularizeLink'>
+  <div class="leftTwo"><img src="images/ddd4b7e.png" width="16" height="16"></div>
+  <div class="leftTwo"><span><a href="#">我的推广链接</a></span></div>  
+  <div class="rightTwo"><p><span>></span></p></div> 
+ </div>  
+ <!-- <div class="body content borderBottom">
+  <div class="leftTwo"><img src="images/1c9e119.png" width="16" height="16"></div>
+  <div class="leftTwo"><span>我的推荐管理</span></div>  
+  <div class="rightTwo"><p><span class="colorRed">推荐会员0人</span><span> ></span></p></div> 
+ </div>     
+  -->
+ <div class="body content borderBottom" id='consumeFeeBack'>
+  <div class="leftTwo"><img src="images/4ba0b0c.png" width="16" height="16"></div>
+  <div class="leftTwo"><span>我的消费全返</span></div>  
+  <div class="rightTwo"><p><span class="colorRed" id='allFeeBack'></span><span> ></span></p></div> 
+ </div>     
+ <div class="body content borderBottom" id='information'>
+  <div class="leftTwo"><img src="images/c057056.png" width="16" height="16"></div>
+  <div class="leftTwo"><span>信息通知</span></div>  
+  <div class="rightTwo"><p><span class="colorRed">0</span><span> ></span></p></div> 
+ </div>            
+ <div class="body content borderBottom" id='shopprofile'>
+  <div class="leftTwo"><img src="images/c734f9c.png" width="16" height="16"></div>
+  <div class="leftTwo"><span>我的资料</span></div>  
+  <div class="rightTwo"><p><span> ></span></p></div> 
+ </div>      
+ <div class="body content borderBottom"  id='transferRecorde'>
+  <div class="leftTwo"><img src="images/5921aca.png" width="16" height="16"></div>
+  <div class="leftTwo"><span>我的转账记录</span></div>  
+  <div class="rightTwo"><p><span> ></span></p></div> 
+ </div>       
+ <div class="body content borderBottom" id='Q_A'>
+  <div class="leftTwo"><img src="images/03f5031.png" width="16" height="16"></div>
+  <div class="leftTwo"><span>我有疑问</span></div>  
+  <div class="rightTwo"><p><span> ></span></p></div> 
+ </div>        
+ <div class="body bollom" id='refereeInfor'>
+  <div>共有<span class="colorRed">10990</span>人关注我们！</div>
+  <div>您的邀请人是：<span class="colorRed"></span></div>   
+ </div> 
+ <div class="floornull"></div>   	
+ <div class="endMenu">
+    <div class="floor floorNav">
+    <div class="leftThree"><a href="javascript:;" class="dClick"><span><img  class="navone" src="images/navone.png" width="24px" height="24px"></span><span  class="navoneFont">附近店铺</span></a></div>  
+    <div class="leftThree"><a href="javascript:;" class="dClick"><span><img class="navtwo" src="images/navtwo.png" width="24px" height="24px"></span><span class="navtwoFont">个人中心</span></a></div>
+    <div class="leftThree"><a href="javascript:;" class="dClick"><span><img class="navthree" src="images/navthree.png" width="24px" height="24px"></span><span class="navthreeFont">商户中心</span></a></div>
+   </div> <!-- <div class="blankButton"></div> -->
+ </div>
+</div>
+</body>
+</html>
