@@ -462,14 +462,16 @@ co.datapersons.manager = {
 	
 	getQueryNeedVerifyShop:function(){		
 		var shopname = $("#shopnameInput").val();
+		var registType = $("#cc").combo('getValue');
 		co.request({
 			action:"User.QueryNeedVerifyShop",
-			body:{shopname:shopname},
+			body:{shopname:shopname,verifyStatus:registType},
 			success:function(data){
 				console.log(data);
 				var result = data;
 	    		if(result != undefined || result != null){
 	    			if(result.status == "0000"){
+	    				
 	    				$("#shopConfirmTable").datagrid('loadData',result.rows);
 	    			}
 	    		}
@@ -1668,7 +1670,29 @@ $(function(){
 		co.datapersons.manager.logout();
 	});
 	
+     $('#cc').combo({
+        required:true,
+        editable:false
+    });
     
-    
+    $('#sp').appendTo($('#cc').combo('panel'));
+            $('#sp span').click(function(){                
+                var s = $(this).text();
+                var v = "";
+                if(s == "全部"){
+                	v = "[0-2]";
+                }else if(s == "待审核"){
+                	v= "[0]";
+                }else if(s == "已审核通过"){
+                	v= "[1]";
+                }else if(s == "未审核通过"){
+                	v= "[2]";
+                }
+                
+                
+                $('#cc').combo('setValue', v).combo('setText', s).combo('hidePanel');
+                co.datapersons.manager.getQueryNeedVerifyShop();
+            });
+    $('#cc').combo('setValue', "[0-2]").combo('setText', "全部");
     
 });

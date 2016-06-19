@@ -61,9 +61,17 @@ co.datapersons.manager = {
 				var result = data;
 				if (result != undefined || result != null) {
 					var id = result.result.i;
+					$("#curUserId").text(id);
+
 					var phonenumber = result.result.p;
 					var session = result.result.s;
 					var usertype = result.result.t;
+					
+					if(usertype == "user"){
+						$("#curUserType").text("消费者");
+					}else{
+						$("#curUserType").text("商家");
+					}
 					co.datapersons.manager.usertype = usertype;
 					if ((co.datapersons.manager.curPageName == "shopperfect" && usertype == "user")
 							|| (co.datapersons.manager.curPageName == "ureceive" && usertype == "shop")) {
@@ -108,6 +116,7 @@ co.datapersons.manager = {
 						co.datapersons.manager.GenRefereeURL();
 					} else if (co.datapersons.manager.curPageName == "queryShopInfor") {
 						co.datapersons.manager.QueryShopInfor();
+						co.datapersons.manager.QueryTradeCountByShopid();
 					} else if (co.datapersons.manager.curPageName == "setShopInfor") {
 						co.datapersons.manager.QuerShopInforByShopid();
 					} else if (co.datapersons.manager.curPageName == "navShopInfor") {
@@ -696,6 +705,7 @@ co.datapersons.manager = {
 				console.log(data);
 				var result = data;
 				var html = "";
+				
 				if(result.rows.length == 0){
 					$("#queryShopIncomeList").html("<p>" + "<span>暂时没有消费记录</span></p>");
 					return ;
@@ -708,14 +718,15 @@ co.datapersons.manager = {
 					var paytimecalc = item.paytimecalc;
 					var paytype = item.paytype;
 					var name = item.name;
+					var userid = item.userid;
 					var phonenumber = item.phonenumber;
 					shopname = item.shopname;
 					shopaddress = item.shopaddress;
 					area = item.area;
 
 					var paynumbermonth = item.paynumbermonth;
-					html += "<p class=\"borderBottom\">" + "<span>用户名称：<span"
-							+ "	class=\"tll\">" + name + "</span>" + "</span>"							
+					html += "<p class=\"borderBottom\">" + "<span>用户ID：<span"
+							+ "	class=\"tll\">" + userid + "</span>" + "</span>"							
 							+ "<span>支付类型：<span class=\"tll\">" + paytype
 							+ "</span>" + "</span>"
 							+ "<span>交易时间：<span class=\"tll\">" + paytime
@@ -726,7 +737,27 @@ co.datapersons.manager = {
 				$("#shopname").text(shopname);
 				$("#shopaddress").text(shopaddress);
 				$("#area").text(area);
+				
 				document.getElementById("queryShopIncomeList").innerHTML = html;
+			}
+		});
+	},
+	
+	QueryTradeCountByShopid:function(){		
+		var shopURL = Util.getQueryString("shopid")[0];// shopid=1'
+		var array = shopURL.split("=");
+		var shopid = array[1];
+		co.request({
+			action : "user.GetCurDayTradeCountByShopid",
+			body : {
+				shopid : shopid
+			},
+			success : function(data) {
+				console.log(data);
+				var result = data;
+				if(result.status == "0000"){
+					$("#consumerecordCount").text(result.count);
+				}
 			}
 		});
 	},
@@ -804,6 +835,8 @@ co.datapersons.manager = {
 								var verifytime = item.verifytime;
 								var checkpeople = item.checkpeople;
 								var undonecause = item.undonecause;
+								
+								var shopType = item.shoptype;
 								//
 
 								$('#userid').val(id);
@@ -820,6 +853,10 @@ co.datapersons.manager = {
 								$('#organizeNumber').val(orgnumber);
 								$('#incorporator').val(incorporator);
 								$('#incorporatorNumber').val(phone);
+								
+								$('#orgNumber').val(orgnumber);
+								
+								$('#shopType').val(shopType);
 
 							}
 						}
@@ -1057,10 +1094,10 @@ co.datapersons.manager = {
 									return;
 								}
 								if (type == "user") {
-									window.location.href = "navUserInfor.html";
+									window.location.href = "navuser.html";
 								}
 								if (type == "shop") {
-									window.location.href = "navShopInfor.html";
+									window.location.href = "navuser.html";
 								}
 							}
 						}
@@ -2252,6 +2289,105 @@ co.datapersons.manager = {
 			}
 		})
 		
+	},
+	initNavMainPage:function(){
+		$("#popularizeLink").click(function(){
+			window.location.href = "navRecommend.html";
+		})
+		
+		$("#recommendManage").click(function(){
+			
+		})
+		recommendCount = "";
+		co.request({
+					action : "user.GetRecommendCount",
+					body : {},
+					success : function(data) {
+						console.log(data);
+						var result = data;
+						$("#recommendPeopleCount").text("推荐会员"+result.result.value+"人")
+						
+					}
+				});
+		
+		
+		$("#consumeFeeBack").click(function(){
+			window.location.href = 'navUserInfor.html';
+		})
+
+		co.request({
+			action : "user.GetHistorySum",
+			body : {},
+			success : function(data) {
+				console.log(data);
+				var result = data;
+				$("#allFeeBack").text("累计消费返利"+result.value+"元");
+				
+			}
+		});
+		
+		
+		$("#information").click(function(){
+			window.location.href ='newUserInfor.html';
+		})
+		
+		$("#myprofile").click(function(){
+			window.location.href='basalData.html';
+		})
+		
+		$("#shopprofile").click(function(){
+			window.location.href='navShopManage.html';
+		})
+		
+		$("#transferRecorde").click(function(){
+			window.location.href='navTransfer.html';
+		})
+		
+		$("#Q_A").click(function(){
+			window.location.href = 'helpUser.html';
+		})
+		
+		//===================================
+		$("#shopManagerLink").click(function(){
+			window.location.href ='navShopManage.html';
+		})
+		
+		$("#agentinforLink").click(function(){
+			window.location.href ='navAgent.html';
+		})
+		
+		$("#helpLink").click(function(){
+			window.location.href ='help.html';
+		})
+		
+		$("#servicepeosonLink").click(function(){
+			window.location.href ='servicepeoson.html';
+		})
+		
+		//====================================
+		
+		co.request({
+			action : "user.GetRefereeName",
+			body : {},
+			success : function(data) {
+				console.log(data);
+				var result = data;
+				var refereeName = "";
+				if(result.result){
+					if(result.result.value != ""){
+						refereeName = result.result.value;
+						var html = "<div>共有<span class=\"colorRed\">0</span>人关注我们！</div>"
+							+"<div>您的邀请人是：<span class=\"colorRed\">"+refereeName+"</span></div> ";
+						$("#refereeInfor").html(html);
+					}
+				}else{
+					var html = "<div>共有<span class=\"colorRed\">0</span>人关注我们！</div>";
+						$("#refereeInfor").html(html);
+				}
+			}
+		});
+		
+		
 	}
 
 }
@@ -2719,8 +2855,8 @@ $(function() {
 			   window.location.href ="navshop.html";
 		   }
 		   
-		   if($(this).children("span")[1].innerText == "商店"){
-			   
+		   if($(this).children("span")[1].innerText == "附近店铺"){
+			   window.location.href ="navShopsInfor.html";
 		   }
 	    })
 	    
@@ -2845,5 +2981,40 @@ $(function() {
 		var shopid = Util.getQueryStringByName("shopid");
 		window.location.href = "shopPicture.html?shopid="+shopid;
 	});
+	
+	if (urlName == "navuser" || urlName == "navshop") {
+		co.datapersons.manager.initNavMainPage();
+		
+	}
+	
+	$(".navone").mouseover(function(){
+		$(".navone").attr('src',"images/navonered.png"); 
+		$(".navoneFont").css('color','#ff0000');
+	})
+	
+	$(".navone").mouseout(function(){
+		$(".navone").attr('src',"images/navone.png"); 
+		$(".navoneFont").css('color','#000000');
+	})
+	
+	$(".navtwo").mouseover(function(){
+		$(".navtwo").attr('src',"images/navtwored.png"); 
+		$(".navtwoFont").css('color','#ff0000');
+	})
+	
+	$(".navtwo").mouseout(function(){
+		$(".navtwo").attr('src',"images/navtwo.png"); 
+		$(".navtwoFont").css('color','#000000');
+	})
+	
+	$(".navthree").mouseover(function(){
+		$(".navthree").attr('src',"images/navthreered.png"); 
+		$(".navthreeFont").css('color','#ff0000');
+	})
+	
+	$(".navthree").mouseout(function(){
+		$(".navthree").attr('src',"images/navthree.png"); 
+		$(".navthreeFont").css('color','#000000');
+	})
 
 });

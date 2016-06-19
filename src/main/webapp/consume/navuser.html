@@ -59,9 +59,9 @@
    <img src="images/logo.jpg" />
   </div>
   <div class="right">
-    <p>会员ID：1100010001</p>
-    <p>会员等级：普通用户</p>
-    <p>会员类型：消费者</p>
+    <p>会员ID：<span id='curUserId'></span></p>
+    <p>会员等级：<span id='curUserLevel'>普通用户</span></p>
+    <p>会员类型：<span id='curUserType' ></span></p>
   </div>
  </div>
  <div class="body filling"></div>
@@ -78,51 +78,51 @@
   <div class="leftThree"><img src="images/returnTwo.png"></div>      
  </div> 
  <div class="body filling"></div> 
- <div class="body content borderBottom">
+ <div class="body content borderBottom" id='popularizeLink'>
   <div class="leftTwo"><img src="images/ddd4b7e.png" width="16" height="16"></div>
   <div class="leftTwo"><span><a href="#">我的推广链接</a></span></div>  
   <div class="rightTwo"><p><span>></span></p></div> 
  </div>  
- <div class="body content borderBottom">
+ <!-- <div class="body content borderBottom" id='recommendManage'>
   <div class="leftTwo"><img src="images/1c9e119.png" width="16" height="16"></div>
   <div class="leftTwo"><span>我的推荐管理</span></div>  
-  <div class="rightTwo"><p><span class="colorRed">推荐会员0人</span><span> ></span></p></div> 
- </div>     
- <div class="body content borderBottom">
+  <div class="rightTwo"><p><span id='recommendPeopleCount' class="colorRed">推荐会员0人</span><span> ></span></p></div> 
+ </div>    -->  
+ <div class="body content borderBottom" id='consumeFeeBack'>
   <div class="leftTwo"><img src="images/4ba0b0c.png" width="16" height="16"></div>
   <div class="leftTwo"><span>我的消费全返</span></div>  
-  <div class="rightTwo"><p><span class="colorRed">累计消费返利0元</span><span> ></span></p></div> 
+  <div class="rightTwo"><p><span class="colorRed" id='allFeeBack'></span><span> ></span></p></div> 
  </div>     
- <div class="body content borderBottom">
+ <div class="body content borderBottom" id='information'>
   <div class="leftTwo"><img src="images/c057056.png" width="16" height="16"></div>
   <div class="leftTwo"><span>信息通知</span></div>  
   <div class="rightTwo"><p><span class="colorRed">0</span><span> ></span></p></div> 
  </div>            
- <div class="body content borderBottom">
+ <div class="body content borderBottom" id='myprofile'>
   <div class="leftTwo"><img src="images/c734f9c.png" width="16" height="16"></div>
   <div class="leftTwo"><span>我的资料</span></div>  
   <div class="rightTwo"><p><span> ></span></p></div> 
  </div>      
- <div class="body content borderBottom">
+ <div class="body content borderBottom" id='transferRecorde'>
   <div class="leftTwo"><img src="images/5921aca.png" width="16" height="16"></div>
   <div class="leftTwo"><span>我的转账记录</span></div>  
   <div class="rightTwo"><p><span> ></span></p></div> 
  </div>       
- <div class="body content borderBottom">
+ <div class="body content borderBottom" id='Q_A'>
   <div class="leftTwo"><img src="images/03f5031.png" width="16" height="16"></div>
   <div class="leftTwo"><span>我有疑问</span></div>  
   <div class="rightTwo"><p><span> ></span></p></div> 
  </div>        
- <div class="body bollom">
+ <div class="body bollom" id='refereeInfor'>
   <div>共有<span class="colorRed">10990</span>人关注我们！</div>
-  <div>您的邀请人是：<span class="colorRed">卡卡卡</span></div>   
+  <div>您的邀请人是：<span class="colorRed"></span></div>   
  </div> 
  <div class="floornull"></div>   	
  <div class="endMenu">
     <div class="floor floorNav">
-    <div class="leftThree"><a href="javascript:;" class="dClick"><span><img src="images/navone.png" width="24px" height="24px"></span><span>商店</span></a></div>  
-    <div class="leftThree"><a href="javascript:;" class="dClick"><span><img src="images/navtwo.png" width="24px" height="24px"></span><span>个人中心</span></a></div>
-    <div class="leftThree"><a href="javascript:;" class="dClick"><span><img src="images/navthree.png" width="24px" height="24px"></span><span>商户中心</span></a></div>
+    <div class="leftThree"><a href="javascript:;" class="dClick"><span><img class="navone" src="images/navone.png" width="24px" height="24px"></span><span class="navoneFont">附近店铺</span></a></div>  
+    <div class="leftThree"><a href="javascript:;" class="dClick"><span><img class="navtwo" src="images/navtwo.png" width="24px" height="24px"></span><span class="navtwoFont">个人中心</span></a></div>
+    <div class="leftThree"><a href="javascript:;" class="dClick"><span><img class="navthree" src="images/navthree.png" width="24px" height="24px"></span><span class="navthreeFont">商户中心</span></a></div>
    </div> <!-- <div class="blankButton"></div> -->
  </div>
 </div>

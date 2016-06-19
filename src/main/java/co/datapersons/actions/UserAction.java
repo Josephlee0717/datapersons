@@ -556,6 +556,31 @@ public class UserAction extends BaseAction
 		}
 	}
 	
+	public void GetRefereeName (JSONObject input,JSONObject output){
+		if(this.getSession().getAttribute("userid") != null){
+			String userid = this.getSession().getAttribute("userid").toString();;
+			String[] queryParams = new String[]{"getRefereeName",userid};
+			JdbcDatabaseService jdbcService = ApplicationContext.getInstance().getJDBCService();
+			Object r = jdbcService.doService(queryParams);
+			
+			if(r!=null){
+				JSONArray result = (JSONArray)r;
+				if(result.size()>0){
+					JSONObject jsonResult = result.getJSONObject(0);
+					String name =  jsonResult.getString("name");						
+					
+					JSONObject userInforesult = new JSONObject();				
+					userInforesult.put("value", name);
+						
+					output.put("result", userInforesult);
+					output.accumulate("status", "0000");
+				}
+			}
+			
+		}
+		
+	}
+	
 	public void GetRecommendCount(JSONObject input,JSONObject output){
 		if(this.getSession().getAttribute("userid") != null){
 			String userid = this.getSession().getAttribute("userid").toString();;
@@ -888,10 +913,29 @@ public class UserAction extends BaseAction
 				output.put("total", "0");				
 				output.put("rows", result);
 				output.accumulate("status", "0000");
-			}
-					
+			}					
 		}
 		
+	}
+	
+	public void GetCurDayTradeCountByShopid(JSONObject input,JSONObject output){
+		if(this.getSession().getAttribute("userid") != null){
+			String shopid =  this.getInput(input, "shopid");
+			String[] queryParams = new String[]{"GetCurDayTradeCountByShopid",shopid};
+			JdbcDatabaseService jdbcService = ApplicationContext.getInstance().getJDBCService();
+			Object r = jdbcService.doService(queryParams);
+			if(r!=null){			
+				JSONArray result = (JSONArray)r;
+				if(result.size()>0){
+					JSONObject jsonResult = result.getJSONObject(0);
+					String count =  jsonResult.getString("curdaytradecount");						
+					
+					output.put("count", count);
+					output.accumulate("status", "0000");
+				}
+					
+			}
+		}
 	}
 	
 	
@@ -1239,8 +1283,8 @@ public class UserAction extends BaseAction
 	
 	public void QueryNeedVerifyShop(JSONObject input,JSONObject output){
 		String shopname = this.getInput(input, "shopname");
-		
-		String[] queryParams = new String[]{"QueryNeedVerifyShop","%"+shopname+"%"};
+		String verifyStatus = this.getInput(input, "verifyStatus");
+		String[] queryParams = new String[]{"QueryNeedVerifyShop",verifyStatus,"%"+shopname+"%"};
 		JdbcDatabaseService jdbcService = ApplicationContext.getInstance().getJDBCService();
 		Object r = jdbcService.doService(queryParams);
 		if(r!=null){			
@@ -2097,8 +2141,10 @@ public class UserAction extends BaseAction
 					String phonenumber =  jsonResult.getString("phonenumber");
 					String identitycard =  jsonResult.getString("identitycard");
 					
-					if (name.equals("") || phonenumber.equals("") || identitycard.equals("")){
+					if (name.equals("") || phonenumber.equals("") || identitycard.equals("") || name.equals("null") || phonenumber.equals("null") || identitycard.equals("null")){
 						output.accumulate("status", "9999");
+						JSONObject error = JSONBuilder.buildErrorByKey("INFOR_ERROR");
+						output.put("error", error);
 					}
 				}
 			}
