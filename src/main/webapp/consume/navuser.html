@@ -1,10 +1,10 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
  <link rel="icon" href="../images/logo.png" />
  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
- <title>转账记录</title> 
+ <title>个人中心</title> 
  <link rel="stylesheet" href="css/body.css" /> 
  <script src="../js/Area.js" type="text/javascript"></script>
  <script src="../js/AreaData_min.js" type="text/javascript"></script>
@@ -34,6 +34,7 @@
   .userInfor .body .left{width:90px;float:left;}
   .userInfor .body .leftTwo{float:left;margin-right:5px;}
   .userInfor .body .leftThree{float:left;}
+  .userInfor .body .leftThree span{width:100%;font-size:12px;display:inline-block;}
   .userInfor .body .right{float:left;}
   .userInfor .body .rightTwo{float:right;}
   .userInfor .body .colorRed{color:red;}
@@ -71,16 +72,16 @@
   <div class="rightTwo"><p><span>查看全部订单 ></span></p></div> 
  </div> 
  <div class="body navPicture">
-  <div class="leftThree"><img src="images/payTwo.png"></div>
-  <div class="leftThree"><img src="images/objectTwo.png"></div>  
-  <div class="leftThree"><img src="images/carTwwo.png"></div>    
-  <div class="leftThree"><img src="images/maneyTwo.png"></div>      
-  <div class="leftThree"><img src="images/returnTwo.png"></div>      
+  <div class="leftThree"><span><img src="images/2959de3.png" width="24" height="24"></span><span>待付款</span></div>
+  <div class="leftThree"><span><img src="images/5ea44ca.png" width="24" height="24"></span><span>待发货</span></div>  
+  <div class="leftThree"><span><img src="images/59643d2.png" width="24" height="24"></span><span>待收货</span></div>
+  <div class="leftThree"><span><img src="images/1df4214.png" width="24" height="24"></span><span>优惠券</span></div>
+  <div class="leftThree"><span><img src="images/4740c0e.png" width="24" height="24"></span><span>退款/售后</span></div>      
  </div> 
  <div class="body filling"></div> 
  <div class="body content borderBottom" id='popularizeLink'>
   <div class="leftTwo"><img src="images/ddd4b7e.png" width="16" height="16"></div>
-  <div class="leftTwo"><span><a href="#">我的推广链接</a></span></div>  
+  <div class="leftTwo"><span>我的推广链接</span></div>  
   <div class="rightTwo"><p><span>></span></p></div> 
  </div>  
  <!-- <div class="body content borderBottom" id='recommendManage'>
@@ -113,16 +114,16 @@
   <div class="leftTwo"><span>我有疑问</span></div>  
   <div class="rightTwo"><p><span> ></span></p></div> 
  </div>        
- <div class="body bollom" id='refereeInfor'>
-  <div>共有<span class="colorRed">10990</span>人关注我们！</div>
-  <div>您的邀请人是：<span class="colorRed"></span></div>   
+ <div class="body bollom" >
+  <div>共有<span class="colorRed" id="getUserCount">10990</span>人关注我们！</div>
+  <div id='refereeInfor' >您的邀请人是：<span class="colorRed" id="getRefereeID"></span></div>   
  </div> 
  <div class="floornull"></div>   	
  <div class="endMenu">
     <div class="floor floorNav">
-    <div class="leftThree"><a href="javascript:;" class="dClick"><span><img class="navone" src="images/navone.png" width="24px" height="24px"></span><span class="navoneFont">附近店铺</span></a></div>  
-    <div class="leftThree"><a href="javascript:;" class="dClick"><span><img class="navtwo" src="images/navtwo.png" width="24px" height="24px"></span><span class="navtwoFont">个人中心</span></a></div>
-    <div class="leftThree"><a href="javascript:;" class="dClick"><span><img class="navthree" src="images/navthree.png" width="24px" height="24px"></span><span class="navthreeFont">商户中心</span></a></div>
+    <div class="leftThree"><a href="javascript:;" class="dClick"><span><img src="images/navone.png" width="24px" height="24px"></span><span>附近店铺</span></a></div>  
+    <div class="leftThree"><a href="javascript:;" class="dClick"><span><img src="images/navtwo.png" width="24px" height="24px"></span><span>个人中心</span></a></div>
+    <div class="leftThree"><a href="javascript:;" class="dClick"><span><img src="images/navthree.png" width="24px" height="24px"></span><span>商户中心</span></a></div>
    </div> <!-- <div class="blankButton"></div> -->
  </div>
 </div>
