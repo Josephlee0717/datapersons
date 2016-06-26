@@ -556,10 +556,10 @@ public class UserAction extends BaseAction
 		}
 	}
 	
-	public void GetRefereeName (JSONObject input,JSONObject output){
+	public void GetRefereeID(JSONObject input,JSONObject output){
 		if(this.getSession().getAttribute("userid") != null){
 			String userid = this.getSession().getAttribute("userid").toString();;
-			String[] queryParams = new String[]{"getRefereeName",userid};
+			String[] queryParams = new String[]{"getRefereeID",userid};
 			JdbcDatabaseService jdbcService = ApplicationContext.getInstance().getJDBCService();
 			Object r = jdbcService.doService(queryParams);
 			
@@ -567,10 +567,10 @@ public class UserAction extends BaseAction
 				JSONArray result = (JSONArray)r;
 				if(result.size()>0){
 					JSONObject jsonResult = result.getJSONObject(0);
-					String name =  jsonResult.getString("name");						
+					String refereeid =  jsonResult.getString("refereeid");						
 					
 					JSONObject userInforesult = new JSONObject();				
-					userInforesult.put("value", name);
+					userInforesult.put("value", refereeid);
 						
 					output.put("result", userInforesult);
 					output.accumulate("status", "0000");
@@ -892,6 +892,26 @@ public class UserAction extends BaseAction
 				}
 					
 			}
+		}
+	}
+	
+	public void CheckShopNoDuplication (JSONObject input,JSONObject output){
+		String sign =  this.getInput(input, "sign");
+		String shopName =  this.getInput(input, "shopName");		
+		String area =  this.getInput(input, "area");
+		
+		String[] queryParams = new String[]{"CheckShopNoDuplication","%"+sign+"%","%"+shopName+"%",area};
+		JdbcDatabaseService jdbcService = ApplicationContext.getInstance().getJDBCService();
+		Object r = jdbcService.doService(queryParams);
+		if(r!=null){			
+			JSONArray result = (JSONArray)r;
+			if(result.size()>0){	
+				JSONObject jsonResult = result.getJSONObject(0);
+				String count =  jsonResult.getString("count");						
+				
+				output.put("count", count);				
+				output.accumulate("status", "0000");
+			}				
 		}
 	}
 	
@@ -1370,8 +1390,7 @@ public class UserAction extends BaseAction
 		String username = this.getInput(input, "username");
 		String userArea = this.getInput(input, "userArea");
 		String ICBCCard = this.getInput(input, "ICBCCard");
-		String zhifubao = this.getInput(input, "zhifubao");
-		String weixin = this.getInput(input, "weixin");
+		
 		String mail = this.getInput(input, "mail");
 		
 		
@@ -1380,7 +1399,7 @@ public class UserAction extends BaseAction
 			JSONObject error = JSONBuilder.buildErrorByKey("phonenumber_BLANK");
 			output.put("error", error);
 		}
-		String[] queryParams = new String[]{"UpdateUserInfo",idCard,username,userArea,ICBCCard,mail,zhifubao,weixin,phonenumber};
+		String[] queryParams = new String[]{"UpdateUserInfo",idCard,username,userArea,ICBCCard,mail,phonenumber};
 		JdbcDatabaseService jdbcService = ApplicationContext.getInstance().getJDBCService();
 		Object r = jdbcService.doService(queryParams);
 		if(r!=null){
@@ -1391,6 +1410,35 @@ public class UserAction extends BaseAction
 			output.put("error", error);
 		}
 	}
+	
+	public void setUserInforUser(JSONObject input,JSONObject output){
+		String phonenumber = this.getSession().getAttribute("phonenumber").toString();
+		String idCard = this.getInput(input, "idCard");
+		String username = this.getInput(input, "username");
+		String userArea = this.getInput(input, "userArea");
+		String ICBCCard = this.getInput(input, "ICBCCard");
+		String zhifubao = this.getInput(input, "zhifubao");
+		String weixin = this.getInput(input, "weixin");
+		String mail = this.getInput(input, "mail");
+		
+		
+		if("".equals(phonenumber)){
+			output.put("status", "9999");
+			JSONObject error = JSONBuilder.buildErrorByKey("phonenumber_BLANK");
+			output.put("error", error);
+		}
+		String[] queryParams = new String[]{"setUserInforUser",idCard,username,userArea,ICBCCard,mail,zhifubao,weixin,phonenumber};
+		JdbcDatabaseService jdbcService = ApplicationContext.getInstance().getJDBCService();
+		Object r = jdbcService.doService(queryParams);
+		if(r!=null){
+			output.accumulate("status", "0000");
+		}else{
+			output.put("status", "9999");
+			JSONObject error = JSONBuilder.buildErrorByKey("SYS_ERR");
+			output.put("error", error);
+		}
+	}
+	
 	public void QueryUserInfoByRegisterday(JSONObject input,JSONObject output){
 		String registertime =  this.getInput(input, "registertime");
 		String area =  this.getInput(input, "area");

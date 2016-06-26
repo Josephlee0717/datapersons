@@ -41,21 +41,33 @@ public class Recorder {
 		try {
 			
 			// Ð´Êý¾Ý¿â
-			String[] queryParams = new String[] { "updateConsume", customerid, consumeTime, shopid, out_trade_no,"支付宝",total_fee };
+			String[] queryParams = new String[] { "hasSameConsumeRecord",out_trade_no};
 			JdbcDatabaseService jdbcService = ApplicationContext.getInstance().getJDBCService();
 			Object r = jdbcService.doService(queryParams);
-			String saveRtn = "Fail";
-			if (r != null) {
-				saveRtn = "Success";
-				// 根据paynumber + balance 来确定下一次的余额和 本次产生的QueueID
-				genQueueID(customerid, consumeTime, shopid, out_trade_no, shopname, total_fee);
+			if(r != null){
+				JSONArray result = (JSONArray)r;
+				if(result.size() > 0){
+					JSONObject jsonResult = result.getJSONObject(0);
+					String count = jsonResult.getString("count");
+					if(count.equals("0")){
+						queryParams = new String[] { "updateConsume", customerid, consumeTime, shopid, out_trade_no,"支付宝",total_fee,shopname};
+						r = jdbcService.doService(queryParams);
+						
+						String saveRtn = "Fail";
+						if (r != null) {
+							saveRtn = "Success";
+							// 根据paynumber + balance 来确定下一次的余额和 本次产生的QueueID
+							genQueueID(customerid, consumeTime, shopid, out_trade_no, shopname, total_fee);
+						}
+						// System.out.println("ZFB result=" + extraCommon
+						// +";customerid="+customerid+";shopid="+shopid+";shopname="+shopname+";
+						// trade_no="+out_trade_no+";
+						// total_fee="+total_fee+";saveRtn="+saveRtn);
+						logger.info("ZFB result=" + extraCommon + ";customerid=" + customerid + ";shopid=" + shopid + ";shopname="
+								+ shopname + "; trade_no=" + out_trade_no + "; total_fee=" + total_fee + ";saveRtn=" + saveRtn);
+					}
+				}
 			}
-			// System.out.println("ZFB result=" + extraCommon
-			// +";customerid="+customerid+";shopid="+shopid+";shopname="+shopname+";
-			// trade_no="+out_trade_no+";
-			// total_fee="+total_fee+";saveRtn="+saveRtn);
-			logger.info("ZFB result=" + extraCommon + ";customerid=" + customerid + ";shopid=" + shopid + ";shopname="
-					+ shopname + "; trade_no=" + out_trade_no + "; total_fee=" + total_fee + ";saveRtn=" + saveRtn);
 		} catch (Exception ex) {
 			logger.error("ZFB result=" + ex +"---"+ extraCommon + ";customerid=" + customerid + ";shopid=" + shopid + ";shopname="
 					+ shopname + "; trade_no=" + out_trade_no + "; total_fee=" + total_fee );
@@ -124,13 +136,13 @@ public class Recorder {
 			String ID = userid + df.format(i + 1).toString() + today;
 			if (i == 0) {
 				String flag = "0";
-				queryParams = new String[] { "InsertIDIntoLineup", ID, today, flag, userid };
+				queryParams = new String[] { "InsertIDIntoLineup", ID,userid, "","100", today,flag  };
 				r = jdbcService.doService(queryParams);
 				logger.info("InsertIDIntoLineup : userid = " + ID + " ; date=" + today + " ; flag =" + flag
 						+ " ; userid=" + userid);
 			} else {
 				String flag = "0";
-				queryParams = new String[] { "InsertIDIntoShallLineup", ID, today, flag, userid };
+				queryParams = new String[] { "InsertIDIntoShallLineup", ID,userid, "","100", today,flag };
 				r = jdbcService.doService(queryParams);
 				logger.info("InsertIDIntoShallLineup : userid = " + ID + " ; date=" + today + " ; flag =" + flag
 						+ " ; userid=" + userid);

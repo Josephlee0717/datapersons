@@ -25,10 +25,10 @@ public class AlipayConfig {
     public static String key = "l1d6p68ivl61iuq83jbkjecrubkmtg0b";
 
 	// ·þÎñÆ÷Òì²½Í¨ÖªÒ³ÃæÂ·¾¶  Ðèhttp://¸ñÊ½µÄÍêÕûÂ·¾¶£¬²»ÄÜ¼Ó?id=123ÕâÀà×Ô¶¨Òå²ÎÊý£¬±ØÐëÍâÍø¿ÉÒÔÕý³£·ÃÎÊ
-	public static String notify_url = "http://www.qiduwl.com/notify_url.jsp";
+	public static String notify_url = "http://www.qiduwl.com/consume/notify_url.jsp";
 
 	// Ò³ÃæÌø×ªÍ¬²½Í¨ÖªÒ³ÃæÂ·¾¶ Ðèhttp://¸ñÊ½µÄÍêÕûÂ·¾¶£¬²»ÄÜ¼Ó?id=123ÕâÀà×Ô¶¨Òå²ÎÊý£¬±ØÐëÍâÍø¿ÉÒÔÕý³£·ÃÎÊ
-	public static String return_url = "http://www.qiduwl.com/return_url.jsp";
+	public static String return_url = "http://www.qiduwl.com/consume/return_url.jsp";
 
 	// Ç©Ãû·½Ê½
 	public static String sign_type = "MD5";
