@@ -1,10 +1,10 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
  <link rel="icon" href="../images/logo.png" />
  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
- <title>代理信息</title> 
+ <title>店铺管理</title> 
  <link rel="stylesheet" href="css/body.css" /> 
  <script src="../js/Area.js" type="text/javascript"></script>
  <script src="../js/AreaData_min.js" type="text/javascript"></script>
@@ -37,18 +37,18 @@
      <p class="borderBottom">
       <span class="red">商铺信息</span>
      </p> 
-     <p class="borderBottom">         
+     <p class="borderBottom" id="noshopReplace">         
       <span>我的拥有商铺个数：<span id="shopCount" class="tll"></span></span>
-      <span>我的当日交易数：<span id="curDayTradeCount" class="tll"></span></span>
-      <span>我的当日营业额：<span id="curDayIncome" class="tll"></span></span>
-      <span>扣点后的营业额：<span id="curDayIncomeAfter" class="tll"></span></span>
+      <span>店铺当日交易数：<span id="curDayTradeCount" class="tll"></span></span>
+      <span>店铺当日营业额：<span id="curDayIncome" class="tll"></span></span>
+      <span>店铺当日扣点后的营业额：<span id="curDayIncomeAfter" class="tll"></span></span>
       <!-- <span>通过系统营业额：<span id="shopIncome" class="tll"></span> 元</span> -->
      </p>  
      <p class="borderBottom">
       <span><a href="addShopInfor.html">添加商铺入驻</a></span>
      </p>
      
-     <p class="borderBottom">
+     <p class="borderBottom" id="noshopDetailReplace" >
       <span class="red">详细信息</span>
      </p> 
      <div id="queryShopIncomeList">
@@ -85,10 +85,11 @@
  
  <div class="endMenu">
     <div class="floor floorNav">
-    <div class="leftThree"><a href="javascript:;" class="dClick"><span><img class="navone" src="images/navone.png" width="24px" height="24px"></span><span class="navoneFont">附近店铺</span></a></div>  
-    <div class="leftThree"><a href="javascript:;" class="dClick"><span><img class="navtwo" src="images/navtwo.png" width="24px" height="24px"></span><span class="navtwoFont">个人中心</span></a></div>
-    <div class="leftThree"><a href="javascript:;" class="dClick"><span><img class="navthree" src="images/navthree.png" width="24px" height="24px"></span><span class="navthreeFont">商户中心</span></a></div>
+    <div class="leftThree"><a href="javascript:;" class="dClick"><span><img src="images/navone.png" width="24px" height="24px"></span><span>附近店铺</span></a></div>  
+    <div class="leftThree"><a href="javascript:;" class="dClick"><span><img src="images/navtwo.png" width="24px" height="24px"></span><span>个人中心</span></a></div>
+    <div class="leftThree"><a href="javascript:;" class="dClick"><span><img src="images/navthree.png" width="24px" height="24px"></span><span>商户中心</span></a></div>
    </div> <!-- <div class="blankButton"></div> -->
  </div>
+</div>
 </body>
 </html>
