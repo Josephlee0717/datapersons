@@ -36,8 +36,8 @@ ul,li,ol{list-style:none}
 .registerBody .body .write .rowLeft{display:inline-block; width:80px; text-align:right; line-height:29px;}
 .registerBody .body .write .rowRight{-webkit-box-flex:5; box-flex:5;}
 .registerBody .body .write .coordinate{position:relative;}
-.registerBody .body .write .verification{position:absolute; right:0px; top:4px; display:block; border:1px solid #dfdfdf; border-radius:10px; background:#f3f3f3;}
-.registerBody .body .write .verification a,.registerBody .body .write .verification a:visited{display:block; text-decoration:none; padding:2px 8px; color:#333; font-size:14px;}
+.registerBody .body .write .verification{position:absolute; right:-8px; top:0px; display:block; border:1px solid #dfdfdf; border-radius:5px; background:#f3f3f3;}
+.registerBody .body .write .verification a,.registerBody .body .write .verification a:visited{display:block; text-decoration:none; padding:0px 8px; line-height:27px; color:#333; font-size:14px;}
 /*about user search shop*/
 .registerBody .body .search{min-width:256px;}
 .registerBody .body .search p{display:-webkit-box;display:box;orient:horizontal;margin-right:2px;}
@@ -45,8 +45,8 @@ ul,li,ol{list-style:none}
 .registerBody .body .search input{width:100%; border:1px solid #dfdfdf; box-shadow:0 0 5px #ccc; border-radius:5px; padding:3px 0px; background-color:white; height:21px; min-width:160px; cursor:auto; -webkit-user-select:text; -webkit-rtl-ordering:logical; border-image-repeat:initial; border-image-outset:initial; -webkit-appearance:textfield;  border-image-source:initial; border-image-slice:initial; border-image-width:initial; line-height:29px;}
 .registerBody .body .search .rowRight{-webkit-box-flex:5; box-flex:5;}
 .registerBody .body .search .coordinate{position:relative;}
-.registerBody .body .search .verification{position:absolute; right:2px; top:4px; display:block; border:1px solid #dfdfdf; border-radius:10px; background:#f3f3f3;}
-.registerBody .body .search .verification a,.registerBody .body .write .verification a:visited{display:block; text-decoration:none; padding:2px 8px; color:#333; font-size:14px;}
+.registerBody .body .search .verification{position:absolute; right:-2px; top:0px; display:block; border:1px solid #dfdfdf; border-radius:5px; background:#f3f3f3; line-height:27px;}
+.registerBody .body .search .verification a,.registerBody .body .write .verification a:visited{display:block; text-decoration:none; padding:0px 8px; color:#333; font-size:14px;}
 /*about user infor*/
 .registerBody .body .infor{padding:6px 0px; border:1px solid #dfdfdf; border-radius:5px; min-width:256px;}
 .registerBody .body .infor .borderBottom{border-bottom:1px solid #CCC;}
@@ -100,6 +100,7 @@ ul,li,ol{list-style:none}
          background-image: -webkit-linear-gradient(top, rgb(250, 250, 250) 0%, rgb(240, 240, 240) 100%);
 		 position:fixed;margin:auto;bottom:0;left:0;right:0;padding:5px;}
 .endMenu .leftThree{float:left;}
+.endMenu .leftThree .red{color:red;}
 
 .blankButton{width:100%;height:100%;position:fixed;top:0;left:0;z-index:2;display:none;}
 

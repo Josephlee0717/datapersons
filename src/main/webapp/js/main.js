@@ -1,5 +1,5 @@
 ﻿﻿co.datapersons.ui = {
-
+	loginErrorCount : 0,
 	serverErrorHandle : function() {
 
 	},
@@ -10,6 +10,19 @@
 					cancelVal : 'Close',
 					cancel : true
 				});
+				
+		if(error.message == "用户名或密码不正确"){
+			if(co.datapersons.ui.loginErrorCount == 3){
+				var date = new Date();
+				localStorage.setItem("loginIntervalStart",date);
+				art.dialog({
+					content : "您已连续登录失败三次，您的账号将被锁定30分钟。如果忘记密码请联系管理员。",
+					cancelVal : 'Close',
+					cancel : true
+				});
+			}
+			co.datapersons.ui.loginErrorCount++;			
+		}		
 	},
 
 	requestFailureHandle : function(error) {
@@ -209,7 +222,7 @@ co.datapersons.manager = {
 
 	getRecordCount : function(userType) {
 		co.request({
-					action : "user.getRecordCount",
+					action : "user.getUserCount",
 					body : {
 						usertype : userType
 					},
@@ -220,11 +233,11 @@ co.datapersons.manager = {
 							if (result.status == "0000") {
 								var recordCount = result.result.recordCount;
 								$("#personCount").text(recordCount);
-								if (userType == "user") {
-									$("#setUserType").text("人");
-								} else {
-									$("#setUserType").text("家商户");
-								}
+//								if (userType == "user") {
+//									$("#setUserType").text("人");
+//								} else {
+//									$("#setUserType").text("家商户");
+//								}
 
 							}
 						}
@@ -525,13 +538,14 @@ co.datapersons.manager = {
 					var todayTradeCount =item.todaytradecount;
 					var reducepoint = item.reducepoint;
 					var paynumberAfterreduce = item.paynumberafterreduce;
+					var verifystatus =item.verifystatus;
+					var undonecause = item.undonecause;
 					if(i == result.rows.length - 1){
 						borderBottom = "";
 					}
-					html += "<p class=\"borderBottom\">  <span>商铺名称：<span class=\"tll\">"
-							+ shopname
-							+ "</span></span>  </p>"
-							+ " <p class=\"borderBottom\">  <span>商铺所属区域：<span class=\"tll\">"
+					var detailHTML = "";
+					if(verifystatus == "1"){
+						detailHTML = " <p class=\"borderBottom\">  <span>商铺所属区域：<span class=\"tll\">"
 							+ shopaddress
 							+ "</span></span> "
 							+ "  <span>店铺当日交易数：<span class=\"tll\">"
@@ -548,20 +562,37 @@ co.datapersons.manager = {
 							+ "</span></span>"
 							+ " </p> "
 							+ "  <p class=\""+borderBottom+"\">"
-							+ " <span><a href=\"addPayInfor.html?shopid="
+							+ " <span><a href=\"addPayInfor.html?nouserid=1&shopid="
 							+ shopid
 							+ "\">添加用户消费</a></span>     "
-							+ " <span><a href=\"queryShopInfor.html?shopid="
+							+ " <span><a href=\"queryShopInfor.html?nouserid=1&shopid="
 							+ shopid
 							+ "\">商铺交易记录</a></span>     "
-							+ " <span><a href=\"setShopInfor.html?shopid="
-							+ shopid
-							+ "\">商铺信息修改申请</a></span> "
-							+ "<span><a href=\"showShopQrcode.html?shopid="
-							+ shopid + "\">商铺支付二维码生成</a></span>" + "</p>"
+							+ " <span>" 
+//							+
+//									"<a href=\"setShopInfor.html?shopid="
+//							+ shopid
+//							+ "\">"
+//							+"商铺信息修改申请</a></span> "
+//							+ "<span><a href=\"showShopQrcode.html?shopid="
+//							+ shopid + "\">商铺支付二维码生成</a></span>" + "</p>"
+					}else if(verifystatus == "0"){
+						detailHTML = " <p class=\"borderBottom\">  <span>审核状态：正在审核...<span class=\"tll\"></p>";
+					}else if(verifystatus == "2"){
+						detailHTML = " <p class=\"borderBottom\">  <span>审核状态："+undonecause+"<span class=\"tll\"></p>";
+					}
+					html += "<p class=\"borderBottom\">  <span>商铺名称：<span class=\"tll\">"
+							+ shopname
+							+ "</span></span>  </p>"
+							+ detailHTML
 				}
 				// 添加用户消费
 				document.getElementById("queryShopIncomeList").innerHTML = html;
+				
+				if(result.rows.length == 0){
+					$("#noshopReplace").html("<span>您还没有添加店铺哦！<span>");
+					$("#noshopDetailReplace").html("");
+				}
 			}
 		});
 	},
@@ -689,10 +720,8 @@ co.datapersons.manager = {
 	},
 
 	QueryShopInfor : function() {
-		var shopURL = Util.getQueryString("shopid")[0];// shopid=1'
-		var array = shopURL.split("=");
-		var shopid = array[1];
-
+		var shopid = Util.getQueryStringByName("shopid");// shopid=1'
+				
 		var shopname = "";
 		var shopaddress = "";
 		var area = "";
@@ -723,6 +752,7 @@ co.datapersons.manager = {
 					shopname = item.shopname;
 					shopaddress = item.shopaddress;
 					area = item.area;
+					
 
 					var paynumbermonth = item.paynumbermonth;
 					html += "<p class=\"borderBottom\">" + "<span>用户ID：<span"
@@ -744,9 +774,8 @@ co.datapersons.manager = {
 	},
 	
 	QueryTradeCountByShopid:function(){		
-		var shopURL = Util.getQueryString("shopid")[0];// shopid=1'
-		var array = shopURL.split("=");
-		var shopid = array[1];
+		var shopid = Util.getQueryStringByName("shopid");// shopid=1'
+		
 		co.request({
 			action : "user.GetCurDayTradeCountByShopid",
 			body : {
@@ -777,8 +806,9 @@ co.datapersons.manager = {
 				+ userSeachdistrict;
 		var shopType = $('#shopType').val();
 		var orgNumber = $('#orgNumber').val();
+		//Check shop no duplication
 		co.request({
-					action : "user.InsertShopInfor",
+			action : "user.CheckShopNoDuplication",
 					body : {
 						sign : sign,
 						shopName : shopName,
@@ -791,23 +821,50 @@ co.datapersons.manager = {
 						orgNumber:orgNumber
 					},
 					success : function(data) {
-						console.log(data);
-						var result = data;
-						if (result.status == "0000") {
-							art.dialog({
-										content : '商铺添加成功！',
-										cancelVal : 'Close',
-										cancel : true
-									});
+						if(data.status == "0000"){
+							if(data.count == "0"){
+								co.request({
+									action : "user.InsertShopInfor",
+									body : {
+										sign : sign,
+										shopName : shopName,
+										shopAddress : shopAddress,
+										area : area,
+										organizeNumber : organizeNumber,
+										incorporator : incorporator,
+										phone : phone,
+										shopType: shopType,
+										orgNumber:orgNumber
+									},
+									success : function(data) {
+										console.log(data);
+										var result = data;
+										if (result.status == "0000") {
+											art.dialog({
+														content : '商铺添加成功！',
+														cancelVal : 'Close',
+														cancel : true
+													});
+											window.location.href = "navShopManage.html";
+										}
+									}
+								});
+							}else{
+								art.dialog({
+									content : '该店铺已存在，不可重复添加',
+									cancelVal : 'Close',
+									cancel : true
+								});
+							}
 						}
+						
 					}
-				});
+		})
+		
 	},
 
 	QuerShopInforByShopid : function() {
-		var shopURL = Util.getQueryString("shopid")[0];// shopid=1'
-		var array = shopURL.split("=");
-		var shopid = array[1];
+		var shopid = Util.getQueryStringByName("shopid");// shopid=1'
 
 		co.request({
 					action : "user.QueryShopInforByShopid",
@@ -866,9 +923,7 @@ co.datapersons.manager = {
 
 	SetShopInfor : function() {
 		// get params
-		var shopURL = Util.getQueryString("shopid")[0];// shopid=1'
-		var array = shopURL.split("=");
-		var shopid = array[1];
+		var shopid = Util.getQueryStringByName("shopid");// shopid=1'
 
 		var sign = $('#sign').val();
 		var shopName = $('#shopName').val();
@@ -1066,7 +1121,20 @@ co.datapersons.manager = {
 	login : function(type) {
 		var mobileNum = $("#mobileNum").val();
 		var password = $("#password").val();
-
+		var intervalStart = localStorage.getItem("loginIntervalStart");
+		var now = new Date();
+		if(intervalStart != "" || intervalStart != null){
+			var startTime = new Date(intervalStart);
+			var minus = now.getTime() - startTime.getTime();
+			if(minus < 1800000){
+				art.dialog({
+					content : "您的账号已被锁定。如果忘记密码请联系管理员。",
+					cancelVal : 'Close',
+					cancel : true
+				});
+				return ;
+			}
+		}
 		co.request({
 					action : "User.login",
 					body : {
@@ -1155,7 +1223,7 @@ co.datapersons.manager = {
 						if (result != undefined || result != null) {
 							if (result.status == "0000") {
 								art.dialog({
-											content : '用户信息以保存！',
+											content : '用户信息已保存！',
 											cancelVal : 'Close',
 											cancel : true
 										});
@@ -1275,8 +1343,8 @@ co.datapersons.manager = {
 		var userArea = userSeachprov + "-" + userSeachcity + "-"
 				+ userSeachdistrict;
 		var ICBCCard = $("#bankCardICBC").val();
-		var zhifubao = $("#zhifubao").val();
-		var weixin = $("#weixin").val();
+//		var zhifubao = $("#zhifubao").val();
+//		var weixin = $("#weixin").val();
 		var mail = $("#mail").val();
 
 		co.request({
@@ -1286,8 +1354,50 @@ co.datapersons.manager = {
 				username : username,
 				idCard : idCard,
 				ICBCCard : ICBCCard,
-				userArea : userArea,
-				zhifubao : zhifubao,
+				userArea : userArea,				
+				mail : mail
+			},
+			success : function(data) {
+				console.log(data);
+				var result = data;
+				if (result != undefined || result != null) {
+					if (result.status == "0000") {
+						art.dialog({
+									content : '用户信息已保存！',
+									ok : function() {
+										window.location.href = "basalData.html";
+
+									}
+								});
+					}
+				}
+				console.log(data);
+			}
+		});
+	},
+	
+	setUserInforUser: function (){
+		var username = $("#userName").val();
+		var idCard = $("#identityCard").val();
+		var userSeachprov = $('#userSeachprov').val();
+		var userSeachcity = $('#userSeachcity').val();
+		var userSeachdistrict = $('#userSeachdistrict').val();
+		var userArea = userSeachprov + "-" + userSeachcity + "-"
+				+ userSeachdistrict;
+		var ICBCCard = $("#bankCardICBC").val();
+		var zhifubao = $("#zhifubao").val();
+		var weixin = $("#weixin").val();
+		var mail = $("#mail").val();
+
+		co.request({
+			action : "user.setUserInforUser",
+			body : {
+				phonenumber : co.datapersons.manager.phonenumber,
+				username : username,
+				idCard : idCard,
+				ICBCCard : ICBCCard,
+				userArea : userArea,	
+				zhifubao: zhifubao,
 				weixin : weixin,
 				mail : mail
 			},
@@ -1666,6 +1776,13 @@ co.datapersons.manager = {
 	},
 
 	loadShopPage : function() {
+		
+		nouserid = Util.getQueryStringByName("nouserid");; 
+		var userBuyEnty = false;
+		if(nouserid == "" || nouserid== null || nouserid == undefined || nouserid != "1"){
+			userBuyEnty = true;
+		}
+		
 		co.request({
 			action : "User.getLoginData",
 			body : {},
@@ -1676,11 +1793,9 @@ co.datapersons.manager = {
 					if (result.status == "0000") {
 						co.datapersons.manager.usertype = result.result.t;
 						
-						if(result.result.t == "user"){
+						if(userBuyEnty){
 							$("#consumerid").val(result.result.i);
 							$('#consumerid').attr("readonly",true)
-						}else{
-//							$("#userid").val(result.result.i);
 						}
 						co.datapersons.manager.phonenumber = result.result.p;
 						co.request({
@@ -2314,6 +2429,8 @@ co.datapersons.manager = {
 		$("#consumeFeeBack").click(function(){
 			window.location.href = 'navUserInfor.html';
 		})
+		
+		
 
 		co.request({
 			action : "user.GetHistorySum",
@@ -2365,24 +2482,41 @@ co.datapersons.manager = {
 		})
 		
 		//====================================
-		
 		co.request({
-			action : "user.GetRefereeName",
+			action : "user.getUserCount",
 			body : {},
 			success : function(data) {
 				console.log(data);
 				var result = data;
-				var refereeName = "";
+				var refereeID = "";
+				
+				if(result.status == "0000"){
+					var userCount  = result.result.recordCount;
+					$("#getUserCount").text(userCount);
+					
+				}
+			}
+		});
+		
+		"<div>共有<span class=\"colorRed\">0</span>人关注我们！</div>"
+		var html = "<div>共有<span class=\"colorRed\">0</span>人关注我们！</div>";
+							
+		co.request({
+			action : "user.GetRefereeID",
+			body : {},
+			success : function(data) {
+				console.log(data);
+				var result = data;
+				var refereeID = "";
 				if(result.result){
-					if(result.result.value != ""){
-						refereeName = result.result.value;
-						var html = "<div>共有<span class=\"colorRed\">0</span>人关注我们！</div>"
-							+"<div>您的邀请人是：<span class=\"colorRed\">"+refereeName+"</span></div> ";
-						$("#refereeInfor").html(html);
+					if(result.result.value != "" && result.result.value != null ){
+						refereeID = result.result.value;
+						$("#getRefereeID").text(refereeID);
+					}else{
+						$("#refereeInfor").html("");
 					}
 				}else{
-					var html = "<div>共有<span class=\"colorRed\">0</span>人关注我们！</div>";
-						$("#refereeInfor").html(html);
+					$("#refereeInfor").html("");
 				}
 			}
 		});
@@ -2410,7 +2544,10 @@ $(function() {
 	
 	var usertype = Util.getQueryStringByName("usertype");
 	var refereeid = Util.getQueryStringByName("refereeid");
-
+	$("#getVerifyCode").click(function() {
+		co.datapersons.manager.requestSMS();
+	});
+	
 	$('#verifyCode').click(function() {
 				co.request({
 							action : "user.checkPhonenumber",
@@ -2539,8 +2676,20 @@ $(function() {
 	});
 
 	$("#changePwd").click(function() {
-				co.datapersons.manager.changePwd();
-			});
+		var times = 0;
+		times = judgInputInfor(judgInputText("#password"), "#promptPwd",
+				times)
+		times = judgInputInfor(judgInputText("#confirmPwd"),
+				"#promptPwdConfirm", times)
+				
+		times = judgInputInfor(judgSame("#password","#confirmPwd"),"#promptPwdConfirm", times)		
+		
+		if (times == 3) {
+			
+			co.datapersons.manager.changePwd();
+			
+		}
+	});
 
 	$("#forget").click(function() {
 				co.datapersons.manager.toForgetPwd();
@@ -2665,6 +2814,31 @@ $(function() {
 		// Click Pass
 		if (times == 5) {
 			co.datapersons.manager.updateUser();
+		}
+
+	});
+	
+	$('#setUserInforBtn').click(function() {
+		var times = 0;
+		times = judgInputInfor(judgValNull("#userName", "必填"), "#promptName",
+				times)
+		times = judgInputInfor(judgValNull("#identityCard", "必填"),
+				"#promptCard", times)
+		times = judgInputInfor(
+				judgAera("#userSeachcity", "#userSeachdistrict"),
+				"#promptArea", times)
+		times = judgInputInfor(judgValNull("#bankCardICBC", "必填"),
+				"#promptICBC", times)
+		times = judgInputInfor(judgValNull("#mail", "必填"), "#promptEmail",
+				times)
+				
+		times = judgInputInfor(judgValNull("#zhifubao", "必填"), "#promptZhifubao",
+				times)
+		times = judgInputInfor(judgValNull("#weixin", "必填"), "#promptWeixin",
+				times)
+		// Click Pass
+		if (times == 7) {
+			co.datapersons.manager.setUserInforUser();
 		}
 
 	});
@@ -2840,9 +3014,9 @@ $(function() {
 	$(".dClick").click(function(){
 		   $(".dClick span").removeClass("red");
 		   var imgarray = $(".dClick img");
-		   imgarray.eq(0).attr("src","img/navone.png")
-		   imgarray.eq(1).attr("src","img/navtwo.png")
-		   imgarray.eq(2).attr("src","img/navthree.png")	   	   
+		   imgarray.eq(0).attr("src","images/navone.png")
+		   imgarray.eq(1).attr("src","images/navtwo.png")
+		   imgarray.eq(2).attr("src","images/navthree.png")	   	   
 		   var imgSrc = $(this).children("span").first().children("img").attr("src")
 		   imgSrc = imgSrc.replace(".png","red.png");
 		   $(this).children("span").first().children("img").attr("src",imgSrc)
@@ -2874,6 +3048,7 @@ $(function() {
 		// Click Pass
 		if (times == 2) {
 			$("#postForm").submit();
+			
 		}
 			// 还需要选择商店
 			// 或者先选择商店进行添加
@@ -2987,34 +3162,34 @@ $(function() {
 		
 	}
 	
-	$(".navone").mouseover(function(){
-		$(".navone").attr('src',"images/navonered.png"); 
-		$(".navoneFont").css('color','#ff0000');
-	})
-	
-	$(".navone").mouseout(function(){
-		$(".navone").attr('src',"images/navone.png"); 
-		$(".navoneFont").css('color','#000000');
-	})
-	
-	$(".navtwo").mouseover(function(){
-		$(".navtwo").attr('src',"images/navtwored.png"); 
-		$(".navtwoFont").css('color','#ff0000');
-	})
-	
-	$(".navtwo").mouseout(function(){
-		$(".navtwo").attr('src',"images/navtwo.png"); 
-		$(".navtwoFont").css('color','#000000');
-	})
-	
-	$(".navthree").mouseover(function(){
-		$(".navthree").attr('src',"images/navthreered.png"); 
-		$(".navthreeFont").css('color','#ff0000');
-	})
-	
-	$(".navthree").mouseout(function(){
-		$(".navthree").attr('src',"images/navthree.png"); 
-		$(".navthreeFont").css('color','#000000');
-	})
+//	$(".navone").mouseover(function(){
+//		$(".navone").attr('src',"images/navonered.png"); 
+//		$(".navoneFont").css('color','#ff0000');
+//	})
+//	
+//	$(".navone").mouseout(function(){
+//		$(".navone").attr('src',"images/navone.png"); 
+//		$(".navoneFont").css('color','#000000');
+//	})
+//	
+//	$(".navtwo").mouseover(function(){
+//		$(".navtwo").attr('src',"images/navtwored.png"); 
+//		$(".navtwoFont").css('color','#ff0000');
+//	})
+//	
+//	$(".navtwo").mouseout(function(){
+//		$(".navtwo").attr('src',"images/navtwo.png"); 
+//		$(".navtwoFont").css('color','#000000');
+//	})
+//	
+//	$(".navthree").mouseover(function(){
+//		$(".navthree").attr('src',"images/navthreered.png"); 
+//		$(".navthreeFont").css('color','#ff0000');
+//	})
+//	
+//	$(".navthree").mouseout(function(){
+//		$(".navthree").attr('src',"images/navthree.png"); 
+//		$(".navthreeFont").css('color','#000000');
+//	})
 
 });

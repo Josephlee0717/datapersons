@@ -16,6 +16,19 @@
 			$("#verifyCode").html( + curCount + "秒再获取");
 		}
 	}	
+	function SetRemainTime2() {
+		if (curCount == 0) {                
+			window.clearInterval(InterValObj);//停止计时器
+			$("#getVerifyCode").removeAttr("disabled");//启用按钮
+			$("#getVerifyCode").html("获取验证码");    
+			$("#getVerifyCode").css({
+				"color":"#333",
+				"text-shadow":"1px 1px 1px #f3f3f3"});	
+		}else {
+			curCount--;
+			$("#getVerifyCode").html( + curCount + "秒再获取");
+		}
+	}	
 	
 	$("#verifyCode").click(
 	 function(){ 
@@ -25,6 +38,16 @@
 		$("#verifyCode").html( + curCount + "秒再获取");
 		$("#verifyCode").css({"color":"#a0a0a0","text-shadow":"1px 1px 1px #fff"});
 		InterValObj = window.setInterval(SetRemainTime, 1000); 
+	 })
+	 
+	 $("#getVerifyCode").click(
+	 function(){ 
+		if(curCount>0){return;}
+		curCount = count;
+		$("#getVerifyCode").attr("disabled", "true");
+		$("#getVerifyCode").html( + curCount + "秒再获取");
+		$("#getVerifyCode").css({"color":"#a0a0a0","text-shadow":"1px 1px 1px #fff"});
+		InterValObj = window.setInterval(SetRemainTime2, 1000); 
 	 })
 
  	
